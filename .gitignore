@@ -1,0 +1,33 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Node.js dependencies
+node_modules/
+
+# Built files
+dist/
+out/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+
+# Editor-specific files
+.vscode/
+*.sublime-workspace
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# npm package manager lock file
+package-lock.json
+
+# Yarn package manager lock file
+yarn.lock
