@@ -1,1 +1,1 @@
-# RhytaDemo_Equipo_7
+# RhytaDemo
