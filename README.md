@@ -1,8 +1,11 @@
 # RhytaDemo
 
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
+[issues-shield]: https://img.shields.io/github/issues/Zeferito/RhytaDemo.svg?style=for-the-badge
+
 [issues-url]: https://github.com/Zeferito/RhytaDemo/issues
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
+
+[license-shield]: https://img.shields.io/github/license/Zeferito/RhytaDemo.svg?style=for-the-badge
+
 [license-url]: https://github.com/Zeferito/RhytaDemo/blob/master/LICENSE
 
 [![Issues][issues-shield]][issues-url]
@@ -17,13 +20,13 @@
 ## Technologies Used
 
 - **Application**:
-  - [Node.js](https://nodejs.org/): A JavaScript runtime for server-side development.
-  - [Sequelize](https://sequelize.org/): An ORM (Object-Relational Mapping) for MySQL database.
-  - [Mongoose](https://mongoosejs.com/): An ODM (Object-Data Modeling) library for MongoDB.
+    - [Node.js](https://nodejs.org/): A JavaScript runtime for server-side development.
+    - [Sequelize](https://sequelize.org/): An ORM (Object-Relational Mapping) for MySQL database.
+    - [Mongoose](https://mongoosejs.com/): An ODM (Object-Data Modeling) library for MongoDB.
 
 - **Databases**:
-  - [MySQL](https://www.mysql.com/): A widely used relational database management system.
-  - [MongoDB](https://www.mongodb.com/): A NoSQL database for flexible and scalable data storage.
+    - [MySQL](https://www.mysql.com/): A widely used relational database management system.
+    - [MongoDB](https://www.mongodb.com/): A NoSQL database for flexible and scalable data storage.
 
 ## Getting Started
 
@@ -50,7 +53,9 @@ To run this application locally, follow these steps:
 
 4. Configure the Databases:
 
-    Configure the databases by following the instructions in the [Configuring Database Connections](#configuring-database-connections) section of this README. You'll need to set up both MySQL and MongoDB connections.
+   Configure the databases by following the instructions in
+   the [Configuring Database Connections](#configuring-database-connections) section of this README. You'll need to set
+   up both MySQL and MongoDB connections.
 
 5. Start the application:
 
@@ -60,7 +65,9 @@ To run this application locally, follow these steps:
 
 ## Configuring Database Connections
 
-To configure the MySQL and MongoDB connections, you can create a `.env` file in the root directory of the `server` folder. This file should contain environment variables that store the necessary database connection information. Here's how to set it up:
+To configure the MySQL and MongoDB connections, you can create a `.env` file in the root directory of the `server`
+folder. This file should contain environment variables that store the necessary database connection information. Here's
+how to set it up:
 
 ### MySQL Configuration
 
@@ -81,7 +88,8 @@ To configure the MySQL and MongoDB connections, you can create a `.env` file in 
     MYSQLDB_NAME=your_mysql_database_name
     ```
 
-    Replace `your_mysql_host`, `your_mysql_user`, `your_mysql_password`, and `your_mysql_database_name` with your actual MySQL database details.
+   Replace `your_mysql_host`, `your_mysql_user`, `your_mysql_password`, and `your_mysql_database_name` with your actual
+   MySQL database details.
 
 #### MongoDB Configuration
 
@@ -99,13 +107,15 @@ To configure the MySQL and MongoDB connections, you can create a `.env` file in 
     MONGODB_URI=your_mongodb_connection_uri
     ```
 
-    Replace `your_mongodb_connection_uri` with the actual connection URI to your MongoDB database.
+   Replace `your_mongodb_connection_uri` with the actual connection URI to your MongoDB database.
 
 Make sure to keep your `.env` file secure and do not share it publicly.
-  
+
 ## Contributing
 
-As this project serves as a demonstration for a school project, it is meant to showcase specific features and functionalities. Therefore, we have intentionally limited contributions to ensure the project remains aligned with its educational objectives.
+As this project serves as a demonstration for a school project, it is meant to showcase specific features and
+functionalities. Therefore, we have intentionally limited contributions to ensure the project remains aligned with its
+educational objectives.
 
 ## License
 
