@@ -95,7 +95,7 @@ educational objectives.
 
 This application is open-source and available under the [MIT License](LICENSE).
 
-## Author
+## Authors
 
 - [Kawtious](https://github.com/Kawtious)
 
