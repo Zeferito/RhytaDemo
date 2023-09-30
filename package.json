@@ -1,0 +1,19 @@
+{
+  "name": "rhyta-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Kawtious, Zeferito",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "sequelize": "^6.33.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "sqlite3": "^5.1.6"
+  }
+}
