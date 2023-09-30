@@ -172,21 +172,26 @@ describe('CourseModel', () => {
     });
 
     it('should set a Career for a Course', async () => {
-        const careerData = {
+        const careerData1 = {
             name: 'Computer Science',
         };
-        const career = await careerModel.create(careerData);
+        const career1 = await careerModel.create(careerData1);
+
+        const careerData2 = {
+            name: 'Computer Science',
+        };
+        const career2 = await careerModel.create(careerData2);
 
         const courseData = {
             name: 'Test Course',
-            careerId: career.id
+            careerId: career1.id
         };
         const createdCourse = await courseModel.create(courseData);
 
-        const updatedCourse = await courseModel.setCareer(createdCourse.id, career.id);
+        const updatedCourse = await courseModel.setCareer(createdCourse.id, career2.id);
 
         expect(updatedCourse).not.toBeNull();
-        expect(updatedCourse.careerId).toBe(career.id);
+        expect(updatedCourse.careerId).toBe(career2.id);
     });
 
     it('should handle errors when setting a Career for a non-existent Course', async () => {

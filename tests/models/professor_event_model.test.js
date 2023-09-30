@@ -186,24 +186,30 @@ describe('ProfessorEventModel', () => {
     });
 
     it('should set a Professor for a Professor Event', async () => {
-        const professorData = {
+        const professorData1 = {
             firstName: 'John',
             lastName: 'Doe',
         };
-        const professor = await professorModel.create(professorData);
+        const professor1 = await professorModel.create(professorData1);
+
+        const professorData2 = {
+            firstName: 'John',
+            lastName: 'Doe',
+        };
+        const professor2 = await professorModel.create(professorData2);
 
         const eventData = {
             title: 'Test Event',
             startDate: new Date(),
             endDate: new Date(),
-            professorId: professor.id
+            professorId: professor1.id
         };
         const createdEvent = await professorEventModel.create(eventData);
 
-        const updatedEvent = await professorEventModel.setProfessor(createdEvent.id, professor.id);
+        const updatedEvent = await professorEventModel.setProfessor(createdEvent.id, professor2.id);
 
         expect(updatedEvent).not.toBeNull();
-        expect(updatedEvent.professorId).toBe(professor.id);
+        expect(updatedEvent.professorId).toBe(professor2.id);
     });
 
     it('should handle errors when setting a Professor for a non-existent Professor Event', async () => {
