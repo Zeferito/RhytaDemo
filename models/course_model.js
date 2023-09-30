@@ -52,7 +52,7 @@ class CourseModel {
             },
         }, {
             tableName: 'course',
-            timestamps: true,
+            timestamps: false,
         });
     }
 

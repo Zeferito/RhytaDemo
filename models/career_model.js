@@ -48,7 +48,7 @@ class CareerModel {
             },
         }, {
             tableName: 'career',
-            timestamps: true,
+            timestamps: false,
         });
     }
 

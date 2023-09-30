@@ -47,7 +47,7 @@ class ProfessorModel {
             },
         }, {
             tableName: 'professor',
-            timestamps: true,
+            timestamps: false,
         });
     }
 

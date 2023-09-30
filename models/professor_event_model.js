@@ -70,7 +70,7 @@ class ProfessorEventModel {
             },
         }, {
             tableName: 'professor_event',
-            timestamps: true,
+            timestamps: false,
         });
     }
 

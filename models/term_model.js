@@ -66,7 +66,7 @@ class TermModel {
             },
         }, {
             tableName: 'term',
-            timestamps: true,
+            timestamps: false,
         });
     }
 
