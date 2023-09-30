@@ -13,7 +13,7 @@
 
 <div align="center">
     <p align="center">
-        This repository contains an application designed to showcase the resource storage system for an AI scheduler that automates the creation of schedules for professors, classrooms, and other resources in educational institutions. This project utilizes Node.js with Sequelize and Mongoose as the primary development stack and supports both MySQL and MongoDB as databases for flexible storage.
+        This repository contains an application designed to showcase the resource storage system for an AI scheduler that automates the creation of schedules for professors, classrooms, and other resources in educational institutions. This project utilizes Node.js with Sequelize as the primary development stack and supports MySQL.
     </p>
 </div>
 
@@ -22,11 +22,9 @@
 - **Application**:
     - [Node.js](https://nodejs.org/): A JavaScript runtime for server-side development.
     - [Sequelize](https://sequelize.org/): An ORM (Object-Relational Mapping) for MySQL database.
-    - [Mongoose](https://mongoosejs.com/): An ODM (Object-Data Modeling) library for MongoDB.
 
 - **Databases**:
     - [MySQL](https://www.mysql.com/): A widely used relational database management system.
-    - [MongoDB](https://www.mongodb.com/): A NoSQL database for flexible and scalable data storage.
 
 ## Getting Started
 
@@ -51,11 +49,9 @@ To run this application locally, follow these steps:
     npm install
     ```
 
-4. Configure the Databases:
+4. Configure the Database:
 
-   Configure the databases by following the instructions in
-   the [Configuring Database Connections](#configuring-database-connections) section of this README. You'll need to set
-   up both MySQL and MongoDB connections.
+   Configure the database by following the instructions in the [Configuring Database Connections](#configuring-database-connections) section of this README.
 
 5. Start the application:
 
@@ -65,9 +61,7 @@ To run this application locally, follow these steps:
 
 ## Configuring Database Connections
 
-To configure the MySQL and MongoDB connections, you can create a `.env` file in the root directory of the `server`
-folder. This file should contain environment variables that store the necessary database connection information. Here's
-how to set it up:
+To configure the MySQL connection, you must create a `.env` file in the root directory of the project. This file will contain environment variables that store the database connection information. Here's how to set it up:
 
 ### MySQL Configuration
 
@@ -90,26 +84,6 @@ how to set it up:
 
    Replace `your_mysql_host`, `your_mysql_user`, `your_mysql_password`, and `your_mysql_database_name` with your actual
    MySQL database details.
-
-#### MongoDB Configuration
-
-1. Create a `.env` file in the directory:
-
-    ```bash
-    touch .env
-    ```
-
-2. Open the `.env` file using a text editor.
-
-3. Add the following environment variables with your MongoDB connection information:
-
-    ```plaintext
-    MONGODB_URI=your_mongodb_connection_uri
-    ```
-
-   Replace `your_mongodb_connection_uri` with the actual connection URI to your MongoDB database.
-
-Make sure to keep your `.env` file secure and do not share it publicly.
 
 ## Contributing
 
