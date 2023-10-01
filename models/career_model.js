@@ -80,7 +80,7 @@ class CareerModel {
     async update(id, careerData) {
         try {
             const [rowCount] = await this.Career.update(careerData, {
-                where: id,
+                where: { id },
             });
 
             if (rowCount === 0) {
@@ -96,7 +96,7 @@ class CareerModel {
     async delete(id) {
         try {
             const rowCount = await this.Career.destroy({
-                where: id,
+                where: { id },
             });
 
             if (rowCount === 0) {

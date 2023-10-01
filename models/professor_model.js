@@ -83,7 +83,7 @@ class ProfessorModel {
     async update(id, professorData) {
         try {
             const [rowCount] = await this.Professor.update(professorData, {
-                where: id,
+                where: { id },
             });
 
             if (rowCount === 0) {
@@ -99,7 +99,7 @@ class ProfessorModel {
     async delete(id) {
         try {
             const rowCount = await this.Professor.destroy({
-                where: id,
+                where: { id },
             });
 
             if (rowCount === 0) {

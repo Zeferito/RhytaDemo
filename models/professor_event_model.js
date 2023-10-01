@@ -106,7 +106,7 @@ class ProfessorEventModel {
     async update(id, eventData) {
         try {
             const [rowCount] = await this.ProfessorEvent.update(eventData, {
-                where: id,
+                where: { id },
             });
 
             if (rowCount === 0) {
@@ -122,7 +122,7 @@ class ProfessorEventModel {
     async delete(id) {
         try {
             const rowCount = await this.ProfessorEvent.destroy({
-                where: id,
+                where: { id },
             });
 
             if (rowCount === 0) {

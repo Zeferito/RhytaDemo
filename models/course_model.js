@@ -88,7 +88,7 @@ class CourseModel {
     async update(id, courseData) {
         try {
             const [rowCount] = await this.Course.update(courseData, {
-                where: id,
+                where: { id },
             });
 
             if (rowCount === 0) {
@@ -104,7 +104,7 @@ class CourseModel {
     async delete(id) {
         try {
             const rowCount = await this.Course.destroy({
-                where: id,
+                where: { id },
             });
 
             if (rowCount === 0) {
