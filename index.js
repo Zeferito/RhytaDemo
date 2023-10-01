@@ -61,6 +61,8 @@ const termService = new TermService(sequelize);
         await professorEventService.initialize();
         await termService.initialize();
 
+        console.log();
+
         while (true) {
             console.log('Options:');
             console.log('1. Careers');
@@ -71,6 +73,8 @@ const termService = new TermService(sequelize);
             console.log('0. Exit');
 
             const choice = readlineSync.question('Enter your choice: ');
+
+            console.log();
 
             switch (choice) {
                 case '1':
@@ -94,6 +98,8 @@ const termService = new TermService(sequelize);
                 default:
                     console.log('Invalid choice. Please try again.');
             }
+
+            console.log();
         }
     } catch (error) {
         console.error('An error occurred:', error.message);

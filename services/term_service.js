@@ -48,6 +48,8 @@ class TermService {
 
                 const choice = readlineSync.question('Enter your choice: ');
 
+                console.log();
+
                 switch (choice) {
                     case '1':
                         await this.retrieveAllTerms();
@@ -66,6 +68,8 @@ class TermService {
                     default:
                         console.log('Invalid choice. Please try again.');
                 }
+
+                console.log();
             }
         } catch (error) {
             console.error('An error occurred:', error.message);
