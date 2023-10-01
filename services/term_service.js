@@ -28,14 +28,6 @@ class TermService {
         this.termModel = new TermModel(sequelize);
     }
 
-    async initialize() {
-        try {
-            await this.sequelize.sync();
-        } catch (error) {
-            console.error('An error occurred during initialization:', error.message);
-        }
-    }
-
     async run() {
         try {
             while (true) {

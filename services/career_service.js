@@ -28,17 +28,9 @@ class CareerService {
         this.sequelize = sequelize;
         this.careerModel = new CareerModel(sequelize);
         this.courseModel = new CourseModel(sequelize);
-    }
 
-    async initialize() {
-        try {
-            this.careerModel.Career.hasMany(this.courseModel.Course, { as: 'courses', foreignKey: 'careerId' });
-            this.courseModel.Course.belongsTo(this.careerModel.Career, { foreignKey: 'careerId', as: 'career' });
-
-            await this.sequelize.sync();
-        } catch (error) {
-            console.error('An error occurred during initialization:', error.message);
-        }
+        this.careerModel.Career.hasMany(this.courseModel.Course, { as: 'courses', foreignKey: 'careerId' });
+        this.courseModel.Course.belongsTo(this.careerModel.Career, { foreignKey: 'careerId', as: 'career' });
     }
 
     async run() {

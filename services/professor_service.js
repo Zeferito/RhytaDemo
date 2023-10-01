@@ -28,17 +28,9 @@ class ProfessorService {
         this.sequelize = sequelize;
         this.professorModel = new ProfessorModel(sequelize);
         this.professorEventModel = new ProfessorEventModel(sequelize);
-    }
 
-    async initialize() {
-        try {
-            await this.professorModel.Professor.hasMany(this.professorEventModel.ProfessorEvent, { as: 'events', foreignKey: 'professorId' });
-            await this.professorEventModel.ProfessorEvent.belongsTo(this.professorModel.Professor, { foreignKey: 'professorId', as: 'professor' });
-
-            await this.sequelize.sync();
-        } catch (error) {
-            console.error('An error occurred during initialization:', error.message);
-        }
+        this.professorModel.Professor.hasMany(this.professorEventModel.ProfessorEvent, { as: 'events', foreignKey: 'professorId' });
+        this.professorEventModel.ProfessorEvent.belongsTo(this.professorModel.Professor, { foreignKey: 'professorId', as: 'professor' });
     }
 
     async run() {

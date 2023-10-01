@@ -55,11 +55,7 @@ const termService = new TermService(sequelize);
 
 (async () => {
     try {
-        await careerService.initialize();
-        await courseService.initialize();
-        await professorService.initialize();
-        await professorEventService.initialize();
-        await termService.initialize();
+        await sequelize.sync();
 
         console.log();
 
