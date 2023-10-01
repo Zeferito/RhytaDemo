@@ -26,6 +26,12 @@ Thumbs.db
 *.sln
 *.swp
 
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+
 # npm package manager lock file
 package-lock.json
 
