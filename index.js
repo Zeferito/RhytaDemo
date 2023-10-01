@@ -55,6 +55,12 @@ const termService = new TermService(sequelize);
 
 (async () => {
     try {
+        await careerService.initialize();
+        await courseService.initialize();
+        await professorService.initialize();
+        await professorEventService.initialize();
+        await termService.initialize();
+
         while (true) {
             console.log('Options:');
             console.log('1. Careers');
@@ -68,23 +74,18 @@ const termService = new TermService(sequelize);
 
             switch (choice) {
                 case '1':
-                    await careerService.initialize();
                     await careerService.run();
                     break;
                 case '2':
-                    await courseService.initialize();
                     await courseService.run();
                     break;
                 case '3':
-                    await professorService.initialize();
                     await professorService.run();
                     break;
                 case '4':
-                    await professorEventService.initialize();
                     await professorEventService.run();
                     break;
                 case '5':
-                    await termService.initialize();
                     await termService.run();
                     break;
                 case '0':
