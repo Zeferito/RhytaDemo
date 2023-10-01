@@ -29,6 +29,7 @@ class ProfessorEventModel {
                 type: DataTypes.BIGINT,
                 primaryKey: true,
                 autoIncrement: true,
+                unique: true,
             },
             title: {
                 type: DataTypes.STRING,

@@ -29,6 +29,7 @@ class ProfessorModel {
                 type: DataTypes.BIGINT,
                 primaryKey: true,
                 autoIncrement: true,
+                unique: true,
             },
             firstName: {
                 type: DataTypes.STRING,

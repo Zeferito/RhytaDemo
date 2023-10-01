@@ -29,6 +29,7 @@ class CourseModel {
                 type: DataTypes.BIGINT,
                 primaryKey: true,
                 autoIncrement: true,
+                unique: true,
             },
             name: {
                 type: DataTypes.STRING,

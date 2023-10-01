@@ -29,6 +29,7 @@ class TermModel {
                 type: DataTypes.BIGINT,
                 primaryKey: true,
                 autoIncrement: true,
+                unique: true,
             },
             title: {
                 type: DataTypes.STRING,

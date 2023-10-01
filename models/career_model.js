@@ -29,6 +29,7 @@ class CareerModel {
                 type: DataTypes.BIGINT,
                 primaryKey: true,
                 autoIncrement: true,
+                unique: true,
             },
             name: {
                 type: DataTypes.STRING,
