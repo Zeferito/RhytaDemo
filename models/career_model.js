@@ -18,7 +18,7 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-const { DataTypes } = require('sequelize');
+const DataTypes = require('sequelize');
 
 class CareerModel {
     constructor(sequelize) {
@@ -53,10 +53,6 @@ class CareerModel {
         });
     }
 
-    async getModel() {
-        return this.Career;
-    }
-
     async findAll() {
         try {
             return await this.Career.findAll();
@@ -84,7 +80,7 @@ class CareerModel {
     async update(id, careerData) {
         try {
             const [rowCount] = await this.Career.update(careerData, {
-                where: { id },
+                where: id,
             });
 
             if (rowCount === 0) {
@@ -100,7 +96,7 @@ class CareerModel {
     async delete(id) {
         try {
             const rowCount = await this.Career.destroy({
-                where: { id },
+                where: id,
             });
 
             if (rowCount === 0) {

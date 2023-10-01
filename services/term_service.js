@@ -28,7 +28,7 @@ class TermService {
         this.termModel = new TermModel(sequelize);
     }
 
-    async run() {
+    async runService() {
         try {
             while (true) {
                 console.log('Options:');

@@ -74,23 +74,23 @@ const termService = new TermService(sequelize);
 
             switch (choice) {
                 case '1':
-                    await careerService.run();
+                    await careerService.runService();
                     break;
                 case '2':
-                    await courseService.run();
+                    await courseService.runService();
                     break;
                 case '3':
-                    await professorService.run();
+                    await professorService.runService();
                     break;
                 case '4':
-                    await professorEventService.run();
+                    await professorEventService.runService();
                     break;
                 case '5':
-                    await termService.run();
+                    await termService.runService();
                     break;
                 case '0':
                     await sequelize.close();
-                    process.exit(0);
+                    return;
                 default:
                     console.log('Invalid choice. Please try again.');
             }
@@ -100,4 +100,6 @@ const termService = new TermService(sequelize);
     } catch (error) {
         console.error('An error occurred:', error.message);
     }
+
+    process.exit(0);
 })();

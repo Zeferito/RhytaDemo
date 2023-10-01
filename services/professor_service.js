@@ -29,11 +29,17 @@ class ProfessorService {
         this.professorModel = new ProfessorModel(sequelize);
         this.professorEventModel = new ProfessorEventModel(sequelize);
 
-        this.professorModel.Professor.hasMany(this.professorEventModel.ProfessorEvent, { as: 'events', foreignKey: 'professorId' });
-        this.professorEventModel.ProfessorEvent.belongsTo(this.professorModel.Professor, { foreignKey: 'professorId', as: 'professor' });
+        this.professorModel.Professor.hasMany(this.professorEventModel.ProfessorEvent, {
+            as: 'events',
+            foreignKey: 'professorId'
+        });
+        this.professorEventModel.ProfessorEvent.belongsTo(this.professorModel.Professor, {
+            foreignKey: 'professorId',
+            as: 'professor'
+        });
     }
 
-    async run() {
+    async runService() {
         try {
             while (true) {
                 console.log('Options:');

@@ -33,7 +33,7 @@ class CareerService {
         this.courseModel.Course.belongsTo(this.careerModel.Career, { foreignKey: 'careerId', as: 'career' });
     }
 
-    async run() {
+    async runService() {
         try {
             while (true) {
                 console.log('Options:');
