@@ -61,7 +61,7 @@ class TermService {
                     case '4':
                         await this.deleteTerm();
                         break;
-                    case '5':
+                    case '0':
                         return;
                     default:
                         console.log('Invalid choice. Please try again.');
