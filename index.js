@@ -32,6 +32,7 @@ const TermView = require('./views/term_view');
 
 const dbConfig = {
     host: process.env.MYSQLDB_HOST,
+    port: process.env.MYSQLDB_PORT,
     user: process.env.MYSQLDB_USER,
     password: process.env.MYSQLDB_PASSWORD,
     database: process.env.MYSQLDB_NAME,
@@ -43,7 +44,8 @@ const sequelize = new Sequelize(
     dbConfig.password,
     {
         host: dbConfig.host,
-        dialect: 'mysql'
+        dialect: 'mysql',
+        port: dbConfig.port
     }
 );
 
