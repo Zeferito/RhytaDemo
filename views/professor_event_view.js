@@ -38,7 +38,7 @@ class ProfessorEventView {
                 console.log('2. Insert Professor Event');
                 console.log('3. Update Professor Event');
                 console.log('4. Delete Professor Event');
-                console.log('0. Exit');
+                console.log('0. Return');
 
                 const choice = readlineSync.question('Enter your choice: ');
 

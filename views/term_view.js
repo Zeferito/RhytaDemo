@@ -36,7 +36,7 @@ class TermView {
                 console.log('2. Insert Term');
                 console.log('3. Update Term');
                 console.log('4. Delete Term');
-                console.log('0. Exit');
+                console.log('0. Return');
 
                 const choice = readlineSync.question('Enter your choice: ');
 

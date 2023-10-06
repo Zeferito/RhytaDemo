@@ -39,7 +39,7 @@ class CourseView {
                 console.log('3. Update Course');
                 console.log('4. Delete Course');
                 console.log('5. Set Career for Course');
-                console.log('0. Exit');
+                console.log('0. Return');
 
                 const choice = readlineSync.question('Enter your choice: ');
 

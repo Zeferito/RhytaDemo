@@ -38,7 +38,7 @@ class ProfessorView {
                 console.log('2. Insert Professor');
                 console.log('3. Update Professor');
                 console.log('4. Delete Professor');
-                console.log('0. Exit');
+                console.log('0. Return');
 
                 const choice = readlineSync.question('Enter your choice: ');
 
