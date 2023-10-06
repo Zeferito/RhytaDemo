@@ -33,50 +33,6 @@ class CourseService {
         this.courseModel.Course.belongsTo(this.careerModel.Career, { foreignKey: 'careerId', as: 'career' });
     }
 
-    async runService() {
-        try {
-            while (true) {
-                console.log('Options:');
-                console.log('1. Retrieve All Courses');
-                console.log('2. Insert Course');
-                console.log('3. Update Course');
-                console.log('4. Delete Course');
-                console.log('5. Set Career for Course');
-                console.log('0. Exit');
-
-                const choice = readlineSync.question('Enter your choice: ');
-
-                console.log();
-
-                switch (choice) {
-                    case '1':
-                        await this.retrieveAllCourses();
-                        break;
-                    case '2':
-                        await this.insertCourse();
-                        break;
-                    case '3':
-                        await this.updateCourse();
-                        break;
-                    case '4':
-                        await this.deleteCourse();
-                        break;
-                    case '5':
-                        await this.setCareerForCourse();
-                        break;
-                    case '0':
-                        return;
-                    default:
-                        console.log('Invalid choice. Please try again.');
-                }
-
-                console.log();
-            }
-        } catch (error) {
-            console.error('An error occurred:', error.message);
-        }
-    }
-
     async retrieveAllCourses() {
         try {
             const courses = await this.courseModel.findAll();
@@ -89,10 +45,7 @@ class CourseService {
         }
     }
 
-    async insertCourse() {
-        const name = readlineSync.question('Enter course name: ');
-        const careerId = readlineSync.question('Enter career ID: ');
-
+    async insertCourse(name, careerId) {
         try {
             const createdCourse = await this.courseModel.create({ name, careerId });
             console.log('Course created successfully. Course Data:');
@@ -102,11 +55,7 @@ class CourseService {
         }
     }
 
-    async updateCourse() {
-        const id = readlineSync.question('Enter course ID to update: ');
-        const name = readlineSync.question('Enter updated course name: ');
-        const careerId = readlineSync.question('Enter updated career ID: ');
-
+    async updateCourse(id, name, careerId) {
         try {
             const updated = await this.courseModel.update(id, { name, careerId });
             if (updated) {
@@ -121,9 +70,7 @@ class CourseService {
         }
     }
 
-    async deleteCourse() {
-        const id = readlineSync.question('Enter course ID to delete: ');
-
+    async deleteCourse(id) {
         try {
             await this.courseModel.delete(id);
             console.log('Course deleted successfully.');
@@ -132,10 +79,7 @@ class CourseService {
         }
     }
 
-    async setCareerForCourse() {
-        const courseId = readlineSync.question('Enter course ID: ');
-        const careerId = readlineSync.question('Enter career ID: ');
-
+    async setCareerForCourse(courseId, careerId) {
         try {
             const course = await this.courseModel.setCareer(courseId, careerId);
             console.log('Career set for course successfully. Updated Course Data:');

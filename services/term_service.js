@@ -28,46 +28,6 @@ class TermService {
         this.termModel = new TermModel(sequelize);
     }
 
-    async runService() {
-        try {
-            while (true) {
-                console.log('Options:');
-                console.log('1. Retrieve All Terms');
-                console.log('2. Insert Term');
-                console.log('3. Update Term');
-                console.log('4. Delete Term');
-                console.log('0. Exit');
-
-                const choice = readlineSync.question('Enter your choice: ');
-
-                console.log();
-
-                switch (choice) {
-                    case '1':
-                        await this.retrieveAllTerms();
-                        break;
-                    case '2':
-                        await this.insertTerm();
-                        break;
-                    case '3':
-                        await this.updateTerm();
-                        break;
-                    case '4':
-                        await this.deleteTerm();
-                        break;
-                    case '0':
-                        return;
-                    default:
-                        console.log('Invalid choice. Please try again.');
-                }
-
-                console.log();
-            }
-        } catch (error) {
-            console.error('An error occurred:', error.message);
-        }
-    }
-
     async retrieveAllTerms() {
         try {
             const terms = await this.termModel.findAll();
@@ -82,11 +42,7 @@ class TermService {
         }
     }
 
-    async insertTerm() {
-        const title = readlineSync.question('Enter term title: ');
-        const startDate = readlineSync.question('Enter start date (YYYY-MM-DD): ');
-        const endDate = readlineSync.question('Enter end date (YYYY-MM-DD): ');
-
+    async insertTerm(title, startDate, endDate) {
         try {
             const createdTerm = await this.termModel.create({ title, startDate, endDate });
 
@@ -97,12 +53,7 @@ class TermService {
         }
     }
 
-    async updateTerm() {
-        const id = readlineSync.question('Enter term ID to update: ');
-        const title = readlineSync.question('Enter updated term title: ');
-        const startDate = readlineSync.question('Enter updated start date (YYYY-MM-DD): ');
-        const endDate = readlineSync.question('Enter updated end date (YYYY-MM-DD): ');
-
+    async updateTerm(id, title, startDate, endDate) {
         try {
             const updated = await this.termModel.update(id, { title, startDate, endDate });
 
@@ -119,9 +70,7 @@ class TermService {
         }
     }
 
-    async deleteTerm() {
-        const id = readlineSync.question('Enter term ID to delete: ');
-
+    async deleteTerm(id) {
         try {
             await this.termModel.delete(id);
 

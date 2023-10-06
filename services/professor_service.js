@@ -39,46 +39,6 @@ class ProfessorService {
         });
     }
 
-    async runService() {
-        try {
-            while (true) {
-                console.log('Options:');
-                console.log('1. Retrieve All Professors');
-                console.log('2. Insert Professor');
-                console.log('3. Update Professor');
-                console.log('4. Delete Professor');
-                console.log('0. Exit');
-
-                const choice = readlineSync.question('Enter your choice: ');
-
-                console.log();
-
-                switch (choice) {
-                    case '1':
-                        await this.retrieveAllProfessors();
-                        break;
-                    case '2':
-                        await this.insertProfessor();
-                        break;
-                    case '3':
-                        await this.updateProfessor();
-                        break;
-                    case '4':
-                        await this.deleteProfessor();
-                        break;
-                    case '0':
-                        return;
-                    default:
-                        console.log('Invalid choice. Please try again.');
-                }
-
-                console.log();
-            }
-        } catch (error) {
-            console.error('An error occurred:', error.message);
-        }
-    }
-
     async retrieveAllProfessors() {
         try {
             const professors = await this.professorModel.findAll();
@@ -93,10 +53,7 @@ class ProfessorService {
         }
     }
 
-    async insertProfessor() {
-        const firstName = readlineSync.question('Enter professor first name: ');
-        const lastName = readlineSync.question('Enter professor last name: ');
-
+    async insertProfessor(firstName, lastName) {
         try {
             const createdProfessor = await this.professorModel.create({ firstName, lastName });
 
@@ -107,11 +64,7 @@ class ProfessorService {
         }
     }
 
-    async updateProfessor() {
-        const id = readlineSync.question('Enter professor ID to update: ');
-        const firstName = readlineSync.question('Enter updated first name: ');
-        const lastName = readlineSync.question('Enter updated last name: ');
-
+    async updateProfessor(id, firstName, lastName) {
         try {
             const updated = await this.professorModel.update(id, { firstName, lastName });
 
@@ -128,9 +81,7 @@ class ProfessorService {
         }
     }
 
-    async deleteProfessor() {
-        const id = readlineSync.question('Enter professor ID to delete: ');
-
+    async deleteProfessor(id) {
         try {
             await this.professorModel.delete(id);
 

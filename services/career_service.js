@@ -33,50 +33,6 @@ class CareerService {
         this.courseModel.Course.belongsTo(this.careerModel.Career, { foreignKey: 'careerId', as: 'career' });
     }
 
-    async runService() {
-        try {
-            while (true) {
-                console.log('Options:');
-                console.log('1. Retrieve All Careers');
-                console.log('2. Insert Career');
-                console.log('3. Update Career');
-                console.log('4. Delete Career');
-                console.log('5. Get Courses by Career');
-                console.log('0. Exit');
-
-                const choice = readlineSync.question('Enter your choice: ');
-
-                console.log();
-
-                switch (choice) {
-                    case '1':
-                        await this.retrieveAllCareers();
-                        break;
-                    case '2':
-                        await this.insertCareer();
-                        break;
-                    case '3':
-                        await this.updateCareer();
-                        break;
-                    case '4':
-                        await this.deleteCareer();
-                        break;
-                    case '5':
-                        await this.getCoursesByCareer();
-                        break;
-                    case '0':
-                        return;
-                    default:
-                        console.log('Invalid choice. Please try again.');
-                }
-
-                console.log();
-            }
-        } catch (error) {
-            console.error('An error occurred:', error.message);
-        }
-    }
-
     async retrieveAllCareers() {
         try {
             const careers = await this.careerModel.findAll();
@@ -91,9 +47,7 @@ class CareerService {
         }
     }
 
-    async insertCareer() {
-        const name = readlineSync.question('Enter career name: ');
-
+    async insertCareer(name) {
         try {
             const createdCareer = await this.careerModel.create({ name });
 
@@ -104,10 +58,7 @@ class CareerService {
         }
     }
 
-    async updateCareer() {
-        const id = readlineSync.question('Enter career ID to update: ');
-        const name = readlineSync.question('Enter updated career name: ');
-
+    async updateCareer(id, name) {
         try {
             const updated = await this.careerModel.update(id, { name });
 
@@ -124,9 +75,7 @@ class CareerService {
         }
     }
 
-    async deleteCareer() {
-        const id = readlineSync.question('Enter career ID to delete: ');
-
+    async deleteCareer(id) {
         try {
             await this.careerModel.delete(id);
 
@@ -136,9 +85,7 @@ class CareerService {
         }
     }
 
-    async getCoursesByCareer() {
-        const careerId = readlineSync.question('Enter career ID: ');
-
+    async getCoursesByCareer(careerId) {
         try {
             const courses = await this.careerModel.getCoursesById(careerId);
 

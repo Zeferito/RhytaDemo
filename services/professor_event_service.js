@@ -39,46 +39,6 @@ class ProfessorEventService {
         });
     }
 
-    async runService() {
-        try {
-            while (true) {
-                console.log('Options:');
-                console.log('1. Retrieve All Professor Events');
-                console.log('2. Insert Professor Event');
-                console.log('3. Update Professor Event');
-                console.log('4. Delete Professor Event');
-                console.log('0. Exit');
-
-                const choice = readlineSync.question('Enter your choice: ');
-
-                console.log();
-
-                switch (choice) {
-                    case '1':
-                        await this.retrieveAllProfessorEvents();
-                        break;
-                    case '2':
-                        await this.insertProfessorEvent();
-                        break;
-                    case '3':
-                        await this.updateProfessorEvent();
-                        break;
-                    case '4':
-                        await this.deleteProfessorEvent();
-                        break;
-                    case '0':
-                        return;
-                    default:
-                        console.log('Invalid choice. Please try again.');
-                }
-
-                console.log();
-            }
-        } catch (error) {
-            console.error('An error occurred:', error.message);
-        }
-    }
-
     async retrieveAllProfessorEvents() {
         try {
             const professorEvents = await this.professorEventModel.findAll();
@@ -93,12 +53,7 @@ class ProfessorEventService {
         }
     }
 
-    async insertProfessorEvent() {
-        const title = readlineSync.question('Enter event title: ');
-        const startDate = readlineSync.question('Enter start date (YYYY-MM-DD): ');
-        const endDate = readlineSync.question('Enter end date (YYYY-MM-DD): ');
-        const professorId = readlineSync.question('Enter professor ID for the event: ');
-
+    async insertProfessorEvent(title, startDate, endDate, professorId) {
         try {
             const createdEvent = await this.professorEventModel.create({ title, startDate, endDate, professorId });
 
@@ -109,13 +64,7 @@ class ProfessorEventService {
         }
     }
 
-    async updateProfessorEvent() {
-        const id = readlineSync.question('Enter professor event ID to update: ');
-        const title = readlineSync.question('Enter updated event title: ');
-        const startDate = readlineSync.question('Enter updated start date (YYYY-MM-DD): ');
-        const endDate = readlineSync.question('Enter updated end date (YYYY-MM-DD): ');
-        const professorId = readlineSync.question('Enter updated professor ID: ');
-
+    async updateProfessorEvent(id, title, startDate, endDate, professorId) {
         try {
             const updated = await this.professorEventModel.update(id, { title, startDate, endDate, professorId });
 
@@ -133,9 +82,7 @@ class ProfessorEventService {
         }
     }
 
-    async deleteProfessorEvent() {
-        const id = readlineSync.question('Enter professor event ID to delete: ');
-
+    async deleteProfessorEvent(id) {
         try {
             const deleted = await this.professorEventModel.delete(id);
 

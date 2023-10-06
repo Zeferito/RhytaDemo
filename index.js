@@ -24,11 +24,11 @@ const Sequelize = require('sequelize');
 
 const readlineSync = require('readline-sync');
 
-const CareerService = require('./services/career_service');
-const CourseService = require('./services/course_service');
-const ProfessorService = require('./services/professor_service');
-const ProfessorEventService = require('./services/professor_event_service');
-const TermService = require('./services/term_service');
+const CareerView = require('./views/career_view');
+const CourseView = require('./views/course_view');
+const ProfessorView = require('./views/professor_view');
+const ProfessorEventView = require('./views/professor_event_view');
+const TermView = require('./views/term_view');
 
 const dbConfig = {
     host: process.env.MYSQLDB_HOST,
@@ -47,11 +47,11 @@ const sequelize = new Sequelize(
     }
 );
 
-const careerService = new CareerService(sequelize);
-const courseService = new CourseService(sequelize);
-const professorEventService = new ProfessorEventService(sequelize);
-const professorService = new ProfessorService(sequelize);
-const termService = new TermService(sequelize);
+const careerService = new CareerView(sequelize);
+const courseService = new CourseView(sequelize);
+const professorEventService = new ProfessorEventView(sequelize);
+const professorService = new ProfessorView(sequelize);
+const termService = new TermView(sequelize);
 
 (async () => {
     try {
@@ -74,19 +74,19 @@ const termService = new TermService(sequelize);
 
             switch (choice) {
                 case '1':
-                    await careerService.runService();
+                    await careerService.runView();
                     break;
                 case '2':
-                    await courseService.runService();
+                    await courseService.runView();
                     break;
                 case '3':
-                    await professorService.runService();
+                    await professorService.runView();
                     break;
                 case '4':
-                    await professorEventService.runService();
+                    await professorEventService.runView();
                     break;
                 case '5':
-                    await termService.runService();
+                    await termService.runView();
                     break;
                 case '0':
                     await sequelize.close();
