@@ -103,7 +103,7 @@ class CourseView {
         const courseId = readlineSync.question('Enter course ID: ');
         const careerId = readlineSync.question('Enter career ID: ');
 
-        await this.courseService.setCareer(courseId, careerId);
+        await this.courseService.setCareerForCourse(courseId, careerId);
     }
 }
 
