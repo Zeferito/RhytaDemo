@@ -22,6 +22,7 @@
 - **Application**:
     - [Node.js](https://nodejs.org/): A JavaScript runtime for server-side development.
     - [Sequelize](https://sequelize.org/): An ORM (Object-Relational Mapping) for MySQL database.
+    - [Jest](https://jestjs.io/): A JavaScript testing framework.
 
 - **Databases**:
     - [MySQL](https://www.mysql.com/): A widely used relational database management system.
