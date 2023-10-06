@@ -77,10 +77,10 @@ To configure the MySQL connection, you must create a `.env` file in the root dir
 3. Add the following environment variables with your MySQL database information:
 
     ```plaintext
-    MYSQLDB_HOST=your_mysql_host
-    MYSQLDB_USER=your_mysql_user
-    MYSQLDB_PASSWORD=your_mysql_password
-    MYSQLDB_NAME=your_mysql_database_name
+    MYSQLDB_HOST="your_mysql_host"
+    MYSQLDB_USER="your_mysql_user"
+    MYSQLDB_PASSWORD="your_mysql_password"
+    MYSQLDB_NAME="your_mysql_database_name"
     ```
 
    Replace `your_mysql_host`, `your_mysql_user`, `your_mysql_password`, and `your_mysql_database_name` with your actual
