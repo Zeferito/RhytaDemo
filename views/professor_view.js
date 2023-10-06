@@ -20,14 +20,12 @@
  */
 const readlineSync = require('readline-sync');
 
-const ProfessorService = require('../services/professor_service');
-const ProfessorEventService = require('../services/professor_event_service');
+const ProfessorController = require('../controllers/professor_controller');
 
 class ProfessorView {
     constructor(sequelize) {
         this.sequelize = sequelize;
-        this.professorService = new ProfessorService(sequelize);
-        this.professorEventService = new ProfessorEventService(sequelize);
+        this.professorController = new ProfessorController(sequelize);
     }
 
     async runView() {
@@ -71,14 +69,14 @@ class ProfessorView {
     }
 
     async retrieveAllProfessors() {
-        await this.professorService.retrieveAllProfessors();
+        await this.professorController.getAll();
     }
 
     async insertProfessor() {
         const firstName = readlineSync.question('Enter professor first name: ');
         const lastName = readlineSync.question('Enter professor last name: ');
 
-        await this.professorService.insertProfessor(firstName, lastName);
+        await this.professorController.insert(firstName, lastName);
     }
 
     async updateProfessor() {
@@ -86,13 +84,13 @@ class ProfessorView {
         const firstName = readlineSync.question('Enter updated first name: ');
         const lastName = readlineSync.question('Enter updated last name: ');
 
-        await this.professorService.updateProfessor(id, firstName, lastName);
+        await this.professorController.update(id, firstName, lastName);
     }
 
     async deleteProfessor() {
         const id = readlineSync.question('Enter professor ID to delete: ');
 
-        await this.professorService.deleteProfessor(id);
+        await this.professorController.delete(id);
     }
 }
 

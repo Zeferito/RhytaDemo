@@ -20,14 +20,12 @@
  */
 const readlineSync = require('readline-sync');
 
-const CourseService = require('../services/course_service');
-const CareerService = require('../services/career_service');
+const CourseController = require('../controllers/course_controller');
 
 class CourseView {
     constructor(sequelize) {
         this.sequelize = sequelize;
-        this.courseService = new CourseService(sequelize);
-        this.careerService = new CareerService(sequelize);
+        this.courseController = new CourseController(sequelize);
     }
 
     async runView() {
@@ -75,14 +73,14 @@ class CourseView {
     }
 
     async retrieveAllCourses() {
-        await this.courseService.retrieveAllCourses();
+        await this.courseController.getAll();
     }
 
     async insertCourse() {
         const name = readlineSync.question('Enter course name: ');
         const careerId = readlineSync.question('Enter career ID: ');
 
-        await this.courseService.insertCourse(name, careerId);
+        await this.courseController.insert(name, careerId);
     }
 
     async updateCourse() {
@@ -90,20 +88,20 @@ class CourseView {
         const name = readlineSync.question('Enter updated course name: ');
         const careerId = readlineSync.question('Enter updated career ID: ');
 
-        await this.courseService.updateCourse(id, name, careerId);
+        await this.courseController.update(id, name, careerId);
     }
 
     async deleteCourse() {
         const id = readlineSync.question('Enter course ID to delete: ');
 
-        await this.courseService.deleteCourse(id);
+        await this.courseController.delete(id);
     }
 
     async setCareerForCourse() {
         const courseId = readlineSync.question('Enter course ID: ');
         const careerId = readlineSync.question('Enter career ID: ');
 
-        await this.courseService.setCareerForCourse(courseId, careerId);
+        await this.courseController.setCareer(courseId, careerId);
     }
 }
 

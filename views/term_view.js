@@ -20,12 +20,12 @@
  */
 const readlineSync = require('readline-sync');
 
-const TermService = require('../services/term_service');
+const TermController = require('../controllers/term_controller');
 
 class TermView {
     constructor(sequelize) {
         this.sequelize = sequelize;
-        this.termService = new TermService(sequelize);
+        this.termController = new TermController(sequelize);
     }
 
     async runView() {
@@ -69,7 +69,7 @@ class TermView {
     }
 
     async retrieveAllTerms() {
-        await this.termService.retrieveAllTerms();
+        await this.termController.getAll();
     }
 
     async insertTerm() {
@@ -77,7 +77,7 @@ class TermView {
         const startDate = readlineSync.question('Enter start date (YYYY-MM-DD): ');
         const endDate = readlineSync.question('Enter end date (YYYY-MM-DD): ');
 
-        await this.termService.insertTerm(title, startDate, endDate);
+        await this.termController.insert(title, startDate, endDate);
     }
 
     async updateTerm() {
@@ -86,13 +86,13 @@ class TermView {
         const startDate = readlineSync.question('Enter updated start date (YYYY-MM-DD): ');
         const endDate = readlineSync.question('Enter updated end date (YYYY-MM-DD): ');
 
-        await this.termService.updateTerm(id, title, startDate, endDate);
+        await this.termController.update(id, title, startDate, endDate);
     }
 
     async deleteTerm() {
         const id = readlineSync.question('Enter term ID to delete: ');
 
-        await this.termService.deleteTerm(id);
+        await this.termController.delete(id);
     }
 }
 

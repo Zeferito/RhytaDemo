@@ -20,14 +20,12 @@
  */
 const readlineSync = require('readline-sync');
 
-const CourseService = require('../services/course_service');
-const CareerService = require('../services/career_service');
+const CareerController = require('../controllers/career_controller');
 
 class CareerView {
     constructor(sequelize) {
         this.sequelize = sequelize;
-        this.careerService = new CareerService(sequelize);
-        this.courseService = new CourseService(sequelize);
+        this.careerController = new CareerController(sequelize);
     }
 
     async runView() {
@@ -75,32 +73,32 @@ class CareerView {
     }
 
     async retrieveAllCareers() {
-        await this.careerService.retrieveAllCareers();
+        await this.careerController.getAll();
     }
 
     async insertCareer() {
         const name = readlineSync.question('Enter career name: ');
 
-        await this.careerService.insertCareer(name);
+        await this.careerController.insert(name);
     }
 
     async updateCareer() {
         const id = readlineSync.question('Enter career ID to update: ');
         const name = readlineSync.question('Enter updated career name: ');
 
-        await this.careerService.updateCareer(id, name);
+        await this.careerController.update(id, name);
     }
 
     async deleteCareer() {
         const id = readlineSync.question('Enter career ID to delete: ');
 
-        await this.careerService.deleteCareer(id);
+        await this.careerController.delete(id);
     }
 
     async getCoursesByCareer() {
         const careerId = readlineSync.question('Enter career ID: ');
 
-        await this.careerService.getCoursesByCareer(careerId);
+        await this.careerController.getCourses(careerId);
     }
 }
 

@@ -20,14 +20,12 @@
  */
 const readlineSync = require('readline-sync');
 
-const ProfessorService = require('../services/professor_service');
-const ProfessorEventService = require('../services/professor_event_service');
+const ProfessorEventController = require('../controllers/professor_event_controller');
 
 class ProfessorEventView {
     constructor(sequelize) {
         this.sequelize = sequelize;
-        this.professorService = new ProfessorService(sequelize);
-        this.professorEventService = new ProfessorEventService(sequelize);
+        this.professorEventController = new ProfessorEventController(sequelize);
     }
 
     async runView() {
@@ -71,7 +69,7 @@ class ProfessorEventView {
     }
 
     async retrieveAllProfessorEvents() {
-        await this.professorEventService.retrieveAllProfessorEvents();
+        await this.professorEventController.getAll();
     }
 
     async insertProfessorEvent() {
@@ -80,7 +78,7 @@ class ProfessorEventView {
         const endDate = readlineSync.question('Enter end date (YYYY-MM-DD): ');
         const professorId = readlineSync.question('Enter professor ID for the event: ');
 
-        await this.professorEventService.insertProfessorEvent(title, startDate, endDate, professorId);
+        await this.professorEventController.insert(title, startDate, endDate, professorId);
     }
 
     async updateProfessorEvent() {
@@ -90,13 +88,13 @@ class ProfessorEventView {
         const endDate = readlineSync.question('Enter updated end date (YYYY-MM-DD): ');
         const professorId = readlineSync.question('Enter updated professor ID: ');
 
-        await this.professorEventService.updateProfessorEvent(id, title, startDate, endDate, professorId);
+        await this.professorEventController.update(id, title, startDate, endDate, professorId);
     }
 
     async deleteProfessorEvent() {
         const id = readlineSync.question('Enter professor event ID to delete: ');
 
-        await this.professorEventService.deleteProfessorEvent(id);
+        await this.professorEventController.delete(id);
     }
 }
 
