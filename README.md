@@ -11,11 +11,9 @@
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 
-<div align="center">
-    <p align="center">
-        This repository contains an application designed to showcase the resource storage system for an AI scheduler that automates the creation of schedules for professors, classrooms, and other resources in educational institutions. This project utilizes Node.js with Sequelize as the primary development stack and supports MySQL.
-    </p>
-</div>
+This repository contains an application designed to showcase the resource storage system for an AI scheduler that
+automates the creation of schedules for professors, classrooms, and other resources in educational institutions. This
+project utilizes Node.js with Sequelize as the primary development stack and supports MySQL.
 
 ## Technologies Used
 
@@ -52,7 +50,8 @@ To run this application locally, follow these steps:
 
 4. Configure the Database:
 
-   Configure the database by following the instructions in the [Configuring Database Connections](#configuring-database-connections) section of this README.
+   Configure the database by following the instructions in
+   the [Configuring Database Connections](#configuring-database-connections) section of this README.
 
 5. Start the application:
 
@@ -62,7 +61,8 @@ To run this application locally, follow these steps:
 
 ## Configuring Database Connections
 
-To configure the MySQL connection, you must create a `.env` file in the root directory of the project. This file will contain environment variables that store the database connection information. Here's how to set it up:
+To configure the MySQL connection, you must create a `.env` file in the root directory of the project. This file will
+contain environment variables that store the database connection information. Here's how to set it up:
 
 ### MySQL Configuration
 
@@ -84,7 +84,8 @@ To configure the MySQL connection, you must create a `.env` file in the root dir
     MYSQLDB_NAME="your_mysql_database_name"    # "mydb"
     ```
 
-   Replace `your_mysql_host`, `your_mysql_port`, `your_mysql_user`, `your_mysql_password`, and `your_mysql_database_name` with your actual
+   Replace `your_mysql_host`, `your_mysql_port`, `your_mysql_user`, `your_mysql_password`,
+   and `your_mysql_database_name` with your actual
    MySQL database details.
 
 ## Contributing
