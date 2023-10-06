@@ -66,7 +66,7 @@ To configure the MySQL connection, you must create a `.env` file in the root dir
 
 ### MySQL Configuration
 
-1. Create a `.env` file in the directory:
+1. In the root directory of the project, create a `.env` file:
 
     ```bash
     touch .env
