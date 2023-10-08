@@ -69,7 +69,12 @@ class TermView {
     }
 
     async retrieveAllTerms() {
-        await this.termController.getAll();
+        const terms = await this.termController.getAll();
+
+        console.log('All Terms:');
+        terms.forEach((term) => {
+            console.log(`ID: ${term.id}, Title: ${term.title}, Start Date: ${term.startDate}, End Date: ${term.endDate}`);
+        });
     }
 
     async insertTerm() {
@@ -77,7 +82,10 @@ class TermView {
         const startDate = readlineSync.question('Enter start date (YYYY-MM-DD): ');
         const endDate = readlineSync.question('Enter end date (YYYY-MM-DD): ');
 
-        await this.termController.insert(title, startDate, endDate);
+        const createdTerm = await this.termController.insert(title, startDate, endDate);
+
+        console.log('Term created successfully. Term Data:');
+        console.log(`ID: ${createdTerm.id}, Title: ${createdTerm.title}, Start Date: ${createdTerm.startDate}, End Date: ${createdTerm.endDate}`);
     }
 
     async updateTerm() {
@@ -86,13 +94,28 @@ class TermView {
         const startDate = readlineSync.question('Enter updated start date (YYYY-MM-DD): ');
         const endDate = readlineSync.question('Enter updated end date (YYYY-MM-DD): ');
 
-        await this.termController.update(id, title, startDate, endDate);
+        const rowCount = await this.termController.update(id, title, startDate, endDate);
+
+        if (rowCount === 0) {
+            throw new Error('Term not found for update');
+        }
+
+        const updatedTerm = await this.termController.get(id);
+
+        console.log('Term updated successfully. Updated Term Data:');
+        console.log(`ID: ${updatedTerm.id}, Title: ${updatedTerm.title}, Start Date: ${updatedTerm.startDate}, End Date: ${updatedTerm.endDate}`);
     }
 
     async deleteTerm() {
         const id = readlineSync.question('Enter term ID to delete: ');
 
-        await this.termController.delete(id);
+        const rowCount = await this.termController.delete(id);
+
+        if (rowCount === 0) {
+            throw new Error('Term not found for deletion');
+        } else {
+            console.log('Term deleted successfully.');
+        }
     }
 }
 

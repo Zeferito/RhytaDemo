@@ -41,14 +41,7 @@ class ProfessorEventService {
 
     async getAll() {
         try {
-            const professorEvents = await this.professorEventModel.ProfessorEvent.findAll();
-
-            console.log('All Professor Events:');
-            professorEvents.forEach((event) => {
-                console.log(`ID: ${event.id}, Title: ${event.title}, Start Date: ${event.startDate}, End Date: ${event.endDate}`);
-            });
-
-            return professorEvents;
+            return await this.professorEventModel.ProfessorEvent.findAll();
         } catch (error) {
             throw new Error('Error retrieving professor events: ' + error.message);
         }
@@ -56,12 +49,7 @@ class ProfessorEventService {
 
     async get(id) {
         try {
-            const event = await this.professorEventModel.ProfessorEvent.findByPk(id);
-
-            console.log('Professor Event Data:');
-            console.log(`ID: ${event.id}, Title: ${event.title}, Start Date: ${event.startDate}, End Date: ${event.endDate}`);
-
-            return event;
+            return await this.professorEventModel.ProfessorEvent.findByPk(id);
         } catch (error) {
             throw new Error('Error retrieving professor event: ' + error.message);
         }
@@ -69,12 +57,7 @@ class ProfessorEventService {
 
     async insert(data) {
         try {
-            const createdEvent = await this.professorEventModel.ProfessorEvent.create(data);
-
-            console.log('Professor event created successfully. Event Data:');
-            console.log(`ID: ${createdEvent.id}, Title: ${createdEvent.title}, Start Date: ${createdEvent.startDate}, End Date: ${createdEvent.endDate}`);
-
-            return createdEvent;
+            return await this.professorEventModel.ProfessorEvent.create(data);
         } catch (error) {
             throw new Error('Error creating professor event: ' + error.message);
         }
@@ -82,20 +65,9 @@ class ProfessorEventService {
 
     async update(id, data) {
         try {
-            const rowCount = await this.professorEventModel.ProfessorEvent.update(data, {
+            return await this.professorEventModel.ProfessorEvent.update(data, {
                 where: { id },
             });
-
-            if (rowCount === 0) {
-                throw new Error('Professor event not found for update');
-            }
-
-            const updatedEvent = await this.professorEventModel.ProfessorEvent.findByPk(id);
-
-            console.log('Professor event updated successfully. Updated Event Data:');
-            console.log(`ID: ${updatedEvent.id}, Title: ${updatedEvent.title}, Start Date: ${updatedEvent.startDate}, End Date: ${updatedEvent.endDate}, Professor ID: ${updatedEvent.professorId}`);
-
-            return updatedEvent;
         } catch (error) {
             throw new Error('Error updating professor event: ' + error.message);
         }
@@ -103,15 +75,9 @@ class ProfessorEventService {
 
     async delete(id) {
         try {
-            const rowCount = await this.professorEventModel.ProfessorEvent.destroy({
+            return await this.professorEventModel.ProfessorEvent.destroy({
                 where: { id },
             });
-
-            if (rowCount === 0) {
-                throw new Error('Professor event not found for deletion');
-            }
-
-            console.log('Professor event deleted successfully.');
         } catch (error) {
             throw new Error('Error deleting professor event: ' + error.message);
         }

@@ -69,14 +69,22 @@ class ProfessorView {
     }
 
     async retrieveAllProfessors() {
-        await this.professorController.getAll();
+        const professors = await this.professorController.getAll();
+
+        console.log('All Professors:');
+        professors.forEach((professor) => {
+            console.log(`ID: ${professor.id}, Name: ${professor.firstName} ${professor.lastName}`);
+        });
     }
 
     async insertProfessor() {
         const firstName = readlineSync.question('Enter professor first name: ');
         const lastName = readlineSync.question('Enter professor last name: ');
 
-        await this.professorController.insert(firstName, lastName);
+        const createdProfessor = await this.professorController.insert(firstName, lastName);
+
+        console.log('Professor created successfully. Professor Data:');
+        console.log(`ID: ${createdProfessor.id}, Name: ${createdProfessor.firstName} ${createdProfessor.lastName}`);
     }
 
     async updateProfessor() {
@@ -84,13 +92,28 @@ class ProfessorView {
         const firstName = readlineSync.question('Enter updated first name: ');
         const lastName = readlineSync.question('Enter updated last name: ');
 
-        await this.professorController.update(id, firstName, lastName);
+        const rowCount = await this.professorController.update(id, firstName, lastName);
+
+        if (rowCount === 0) {
+            throw new Error('Professor not found for update');
+        }
+
+        const updatedProfessor = await this.professorController.get(id);
+
+        console.log('Professor updated successfully. Updated Professor Data:');
+        console.log(`ID: ${updatedProfessor.id}, Name: ${updatedProfessor.firstName} ${updatedProfessor.lastName}`);
     }
 
     async deleteProfessor() {
         const id = readlineSync.question('Enter professor ID to delete: ');
 
-        await this.professorController.delete(id);
+        const rowCount = await this.professorController.delete(id);
+
+        if (rowCount === 0) {
+            throw new Error('Professor not found for deletion');
+        } else {
+            console.log('Professor deleted successfully.');
+        }
     }
 }
 

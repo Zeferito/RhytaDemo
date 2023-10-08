@@ -86,14 +86,14 @@ describe('CareerService', () => {
         };
         const createdCareer = await careerService.insert(careerData);
 
-        await careerService.delete(createdCareer.id);
-
-        expect(careerService.get(createdCareer.id)).rejects.toThrow();
+        const rowCount = await careerService.delete(createdCareer.id);
+        expect(rowCount === 0).toBeFalsy();
     });
 
     it('should return null when trying to find a non-existent Career by ID', async () => {
         const nonExistentId = 9999;
-        expect(careerService.get(nonExistentId)).rejects.toThrow();
+        const nonExistentCareer = await careerService.get(nonExistentId);
+        expect(nonExistentCareer).toBeNull();
     });
 
     it('should return an empty array for getAll when no Careers exist', async () => {
@@ -111,12 +111,14 @@ describe('CareerService', () => {
         const nonExistentId = 9999;
         const updatedData = { name: 'Updated Career' };
 
-        await expect(careerService.update(nonExistentId, updatedData)).rejects.toThrow();
+        const rowCount = await careerService.update(nonExistentId, updatedData);
+        expect(rowCount == 0).toBeTruthy();
     });
 
     it('should handle errors when deleting a non-existent Career', async () => {
         const nonExistentId = 9999;
 
-        await expect(careerService.delete(nonExistentId)).rejects.toThrow();
+        const rowCount = await careerService.delete(nonExistentId);
+        expect(rowCount).toBe(0);
     });
 });

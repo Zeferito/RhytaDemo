@@ -69,26 +69,49 @@ class CareerView {
     }
 
     async retrieveAllCareers() {
-        await this.careerController.getAll();
+        const careers = await this.careerController.getAll();
+
+        console.log('All Careers:');
+        careers.forEach((career) => {
+            console.log(`ID: ${career.id}, Name: ${career.name}`);
+        });
     }
 
     async insertCareer() {
         const name = readlineSync.question('Enter career name: ');
 
-        await this.careerController.insert(name);
+        const createdCareer = await this.careerController.insert(name);
+
+        console.log('Career created successfully. Career Data:');
+        console.log(`ID: ${createdCareer.id}, Name: ${createdCareer.name}`);
     }
 
     async updateCareer() {
         const id = readlineSync.question('Enter career ID to update: ');
         const name = readlineSync.question('Enter updated career name: ');
 
-        await this.careerController.update(id, name);
+        const rowCount = await this.careerController.update(id, name);
+
+        if (rowCount === 0) {
+            throw new Error('Career not found for update');
+        }
+
+        const updatedCareer = await this.careerController.get(id);
+
+        console.log('Career updated successfully. Updated Career Data:');
+        console.log(`ID: ${updatedCareer.id}, Name: ${updatedCareer.name}`);
     }
 
     async deleteCareer() {
         const id = readlineSync.question('Enter career ID to delete: ');
 
-        await this.careerController.delete(id);
+        const rowCount = await this.careerController.delete(id);
+
+        if (rowCount === 0) {
+            throw new Error('Career not found for deletion');
+        } else {
+            console.log('Career deleted successfully.');
+        }
     }
 }
 

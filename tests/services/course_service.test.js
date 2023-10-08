@@ -105,14 +105,14 @@ describe('CourseService', () => {
         };
         const createdCourse = await courseService.insert(courseData);
 
-        await courseService.delete(createdCourse.id);
-
-        expect(courseService.get(createdCourse.id)).rejects.toThrow();
+        const rowCount = await courseService.delete(createdCourse.id);
+        expect(rowCount === 0).toBeFalsy();
     });
 
     it('should return null when trying to find a non-existent Course by ID', async () => {
         const nonExistentId = 9999;
-        expect(courseService.get(nonExistentId)).rejects.toThrow();
+        const nonExistentCourse = await courseService.get(nonExistentId);
+        expect(nonExistentCourse).toBeNull();
     });
 
     it('should return an empty array for getAll when no Courses exist', async () => {
@@ -154,12 +154,14 @@ describe('CourseService', () => {
         const nonExistentId = 9999;
         const updatedData = { name: 'Updated Course' };
 
-        await expect(courseService.update(nonExistentId, updatedData)).rejects.toThrow();
+        const rowCount = await courseService.update(nonExistentId, updatedData);
+        expect(rowCount == 0).toBeTruthy();
     });
 
     it('should handle errors when deleting a non-existent Course', async () => {
         const nonExistentId = 9999;
 
-        await expect(courseService.delete(nonExistentId)).rejects.toThrow();
+        const rowCount = await courseService.delete(nonExistentId);
+        expect(rowCount).toBe(0);
     });
 });

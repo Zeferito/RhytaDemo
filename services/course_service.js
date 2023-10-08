@@ -35,14 +35,7 @@ class CourseService {
 
     async getAll() {
         try {
-            const courses = await this.courseModel.Course.findAll();
-
-            console.log('All Courses:');
-            courses.forEach((course) => {
-                console.log(`ID: ${course.id}, Name: ${course.name}, Career ID: ${course.careerId}`);
-            });
-
-            return courses;
+            return await this.courseModel.Course.findAll();
         } catch (error) {
             throw new Error('Error retrieving courses: ' + error.message);
         }
@@ -50,12 +43,7 @@ class CourseService {
 
     async get(id) {
         try {
-            const course = await this.courseModel.Course.findByPk(id);
-
-            console.log('Course Data:');
-            console.log(`ID: ${course.id}, Name: ${course.name}, Career ID: ${course.careerId}`);
-
-            return course;
+            return await this.courseModel.Course.findByPk(id);
         } catch (error) {
             throw new Error('Error retrieving course: ' + error.message);
         }
@@ -63,12 +51,7 @@ class CourseService {
 
     async insert(data) {
         try {
-            const createdCourse = await this.courseModel.Course.create(data);
-
-            console.log('Course created successfully. Course Data:');
-            console.log(`ID: ${createdCourse.id}, Name: ${createdCourse.name}, Career ID: ${createdCourse.careerId}`);
-
-            return createdCourse;
+            return await this.courseModel.Course.create(data);
         } catch (error) {
             throw new Error('Error creating course: ' + error.message);
         }
@@ -76,20 +59,9 @@ class CourseService {
 
     async update(id, data) {
         try {
-            const rowCount = await this.courseModel.Course.update(data, {
+            return await this.courseModel.Course.update(data, {
                 where: { id },
             });
-
-            if (rowCount === 0) {
-                throw new Error('Course not found for update');
-            }
-
-            const updatedCourse = await this.courseModel.Course.findByPk(id);
-
-            console.log('Course updated successfully. Updated Course Data:');
-            console.log(`ID: ${updatedCourse.id}, Name: ${updatedCourse.name}, Career ID: ${updatedCourse.careerId}`);
-
-            return updatedCourse;
         } catch (error) {
             throw new Error('Error updating course: ' + error.message);
         }
@@ -97,15 +69,9 @@ class CourseService {
 
     async delete(id) {
         try {
-            const rowCount = await this.courseModel.Course.destroy({
+            return await this.courseModel.Course.destroy({
                 where: { id },
             });
-
-            if (rowCount === 0) {
-                throw new Error('Course not found for deletion');
-            }
-
-            console.log('Course deleted successfully.');
         } catch (error) {
             throw new Error('Error deleting course: ' + error.message);
         }

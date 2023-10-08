@@ -90,14 +90,14 @@ describe('TermService', () => {
         };
         const createdTerm = await termService.insert(termData);
 
-        await termService.delete(createdTerm.id);
-
-        expect(termService.get(createdTerm.id)).rejects.toThrow();
+        const rowCount = await termService.delete(createdTerm.id);
+        expect(rowCount === 0).toBeFalsy();
     });
 
     it('should handle errors when trying to find a non-existent Term by ID', async () => {
         const nonExistentId = 9999;
-        expect(termService.get(nonExistentId)).rejects.toThrow();
+        const nonExistentTerm = await termService.get(nonExistentId);
+        expect(nonExistentTerm).toBeNull();
     });
 
     it('should return an empty array for getAll when no Terms exist', async () => {
@@ -136,13 +136,15 @@ describe('TermService', () => {
         const nonExistentId = 9999;
         const updatedData = { title: 'Updated Term' };
 
-        await expect(termService.update(nonExistentId, updatedData)).rejects.toThrow();
+        const rowCount = await termService.update(nonExistentId, updatedData);
+        expect(rowCount == 0).toBeTruthy();
     });
 
     it('should handle errors when deleting a non-existent Term', async () => {
         const nonExistentId = 9999;
 
-        await expect(termService.delete(nonExistentId)).rejects.toThrow();
+        const rowCount = await termService.delete(nonExistentId);
+        expect(rowCount).toBe(0);
     });
 
     it('should create a Term and find it by ID with correct attributes', async () => {

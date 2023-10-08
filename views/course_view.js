@@ -69,14 +69,22 @@ class CourseView {
     }
 
     async retrieveAllCourses() {
-        await this.courseController.getAll();
+        const courses = await this.courseController.getAll();
+
+        console.log('All Courses:');
+        courses.forEach((course) => {
+            console.log(`ID: ${course.id}, Name: ${course.name}, Career ID: ${course.careerId}`);
+        });
     }
 
     async insertCourse() {
         const name = readlineSync.question('Enter course name: ');
         const careerId = readlineSync.question('Enter career ID: ');
 
-        await this.courseController.insert(name, careerId);
+        const createdCourse = await this.courseController.insert(name, careerId);
+
+        console.log('Course created successfully. Course Data:');
+        console.log(`ID: ${createdCourse.id}, Name: ${createdCourse.name}, Career ID: ${createdCourse.careerId}`);
     }
 
     async updateCourse() {
@@ -84,13 +92,28 @@ class CourseView {
         const name = readlineSync.question('Enter updated course name: ');
         const careerId = readlineSync.question('Enter updated career ID: ');
 
-        await this.courseController.update(id, name, careerId);
+        const rowCount = await this.courseController.update(id, name, careerId);
+
+        if (rowCount === 0) {
+            throw new Error('Course not found for update');
+        }
+
+        const updatedCourse = await this.courseController.get(id);
+
+        console.log('Course updated successfully. Updated Course Data:');
+        console.log(`ID: ${updatedCourse.id}, Name: ${updatedCourse.name}, Career ID: ${updatedCourse.careerId}`);
     }
 
     async deleteCourse() {
         const id = readlineSync.question('Enter course ID to delete: ');
 
-        await this.courseController.delete(id);
+        const rowCount = await this.courseController.delete(id);
+
+        if (rowCount === 0) {
+            throw new Error('Course not found for deletion');
+        } else {
+            console.log('Course deleted successfully.');
+        }
     }
 }
 

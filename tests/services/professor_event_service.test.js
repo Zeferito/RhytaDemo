@@ -114,14 +114,14 @@ describe('ProfessorEventService', () => {
         };
         const createdEvent = await professorEventService.insert(eventData);
 
-        await professorEventService.delete(createdEvent.id);
-
-        expect(professorEventService.get(createdEvent.id)).rejects.toThrow();
+        const rowCount = await professorEventService.delete(createdEvent.id);
+        expect(rowCount === 0).toBeFalsy();
     });
 
     it('should handle errors when trying to find a non-existent Professor Event by ID', async () => {
         const nonExistentId = 9999;
-        expect(professorEventService.get(nonExistentId)).rejects.toThrow();
+        const nonExistentEvent = await professorEventService.get(nonExistentId);
+        expect(nonExistentEvent).toBeNull();
     });
 
     it('should return an empty array for getAll when no Professor Events exist', async () => {
@@ -168,12 +168,14 @@ describe('ProfessorEventService', () => {
         const nonExistentId = 9999;
         const updatedData = { title: 'Updated Event' };
 
-        await expect(professorEventService.update(nonExistentId, updatedData)).rejects.toThrow();
+        const rowCount = await professorEventService.update(nonExistentId, updatedData);
+        expect(rowCount == 0).toBeTruthy();
     });
 
     it('should handle errors when deleting a non-existent Professor Event', async () => {
         const nonExistentId = 9999;
 
-        await expect(professorEventService.delete(nonExistentId)).rejects.toThrow();
+        const rowCount = await professorEventService.delete(nonExistentId);
+        expect(rowCount).toBe(0);
     });
 });

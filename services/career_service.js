@@ -35,14 +35,7 @@ class CareerService {
 
     async getAll() {
         try {
-            const careers = await this.careerModel.Career.findAll();
-
-            console.log('All Careers:');
-            careers.forEach((career) => {
-                console.log(`ID: ${career.id}, Name: ${career.name}`);
-            });
-
-            return careers;
+            return await this.careerModel.Career.findAll();
         } catch (error) {
             throw new Error('Error retrieving careers: ' + error.message);
         }
@@ -50,12 +43,7 @@ class CareerService {
 
     async get(id) {
         try {
-            const career = await this.careerModel.Career.findByPk(id);
-
-            console.log('Career Data:');
-            console.log(`ID: ${career.id}, Name: ${career.name}`);
-
-            return career;
+            return await this.careerModel.Career.findByPk(id);
         } catch (error) {
             throw new Error('Error retrieving careers: ' + error.message);
         }
@@ -63,12 +51,7 @@ class CareerService {
 
     async insert(data) {
         try {
-            const createdCareer = await this.careerModel.Career.create(data);
-
-            console.log('Career created successfully. Career Data:');
-            console.log(`ID: ${createdCareer.id}, Name: ${createdCareer.name}`);
-
-            return createdCareer;
+            return await this.careerModel.Career.create(data);
         } catch (error) {
             throw new Error('Error creating career: ' + error.message);
         }
@@ -76,20 +59,9 @@ class CareerService {
 
     async update(id, data) {
         try {
-            const rowCount = await this.careerModel.Career.update(data, {
+            return await this.careerModel.Career.update(data, {
                 where: { id },
             });
-
-            if (rowCount === 0) {
-                throw new Error('Career not found for update');
-            }
-
-            const updatedCareer = await this.careerModel.Career.findByPk(id);
-
-            console.log('Career updated successfully. Updated Career Data:');
-            console.log(`ID: ${updatedCareer.id}, Name: ${updatedCareer.name}`);
-
-            return updatedCareer;
         } catch (error) {
             throw new Error('Error updating career: ' + error.message);
         }
@@ -97,15 +69,9 @@ class CareerService {
 
     async delete(id) {
         try {
-            const rowCount = await this.careerModel.Career.destroy({
+            return await this.careerModel.Career.destroy({
                 where: { id },
             });
-
-            if (rowCount === 0) {
-                throw new Error('Career not found for deletion');
-            }
-
-            console.log('Career deleted successfully.');
         } catch (error) {
             throw new Error('Error deleting career: ' + error.message);
         }

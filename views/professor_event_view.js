@@ -69,7 +69,12 @@ class ProfessorEventView {
     }
 
     async retrieveAllProfessorEvents() {
-        await this.professorEventController.getAll();
+        const professorEvents = await this.professorEventController.getAll();
+
+        console.log('All Professor Events:');
+        professorEvents.forEach((event) => {
+            console.log(`ID: ${event.id}, Title: ${event.title}, Start Date: ${event.startDate}, End Date: ${event.endDate}`);
+        });
     }
 
     async insertProfessorEvent() {
@@ -78,7 +83,10 @@ class ProfessorEventView {
         const endDate = readlineSync.question('Enter end date (YYYY-MM-DD): ');
         const professorId = readlineSync.question('Enter professor ID for the event: ');
 
-        await this.professorEventController.insert(title, startDate, endDate, professorId);
+        const createdEvent = await this.professorEventController.insert(title, startDate, endDate, professorId);
+
+        console.log('Professor event created successfully. Event Data:');
+        console.log(`ID: ${createdEvent.id}, Title: ${createdEvent.title}, Start Date: ${createdEvent.startDate}, End Date: ${createdEvent.endDate}`);
     }
 
     async updateProfessorEvent() {
@@ -88,13 +96,29 @@ class ProfessorEventView {
         const endDate = readlineSync.question('Enter updated end date (YYYY-MM-DD): ');
         const professorId = readlineSync.question('Enter updated professor ID: ');
 
-        await this.professorEventController.update(id, title, startDate, endDate, professorId);
+        const rowCount = await this.professorEventController.update(id, title, startDate, endDate, professorId);
+
+        if (rowCount === 0) {
+            throw new Error('Professor event not found for update');
+        }
+
+        const updatedEvent = await this.professorEventController.get(id);
+
+        console.log('Professor event updated successfully. Updated Event Data:');
+        console.log(`ID: ${updatedEvent.id}, Title: ${updatedEvent.title}, Start Date: ${updatedEvent.startDate}, End Date: ${updatedEvent.endDate}, Professor ID: ${updatedEvent.professorId}`);
     }
 
     async deleteProfessorEvent() {
         const id = readlineSync.question('Enter professor event ID to delete: ');
 
-        await this.professorEventController.delete(id);
+        const rowCount = await this.professorEventController.delete(id);
+
+
+        if (rowCount === 0) {
+            throw new Error('Professor event not found for deletion');
+        } else {
+            console.log('Professor event deleted successfully.');
+        }
     }
 }
 

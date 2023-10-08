@@ -90,14 +90,14 @@ describe('ProfessorService', () => {
         };
         const createdProfessor = await professorService.insert(professorData);
 
-        await professorService.delete(createdProfessor.id);
-
-        expect(professorService.get(createdProfessor.id)).rejects.toThrow();
+        const rowCount = await professorService.delete(createdProfessor.id);
+        expect(rowCount === 0).toBeFalsy();
     });
 
     it('should handle errors when trying to find a non-existent Professor by ID', async () => {
         const nonExistentId = 9999;
-        expect(professorService.get(nonExistentId)).rejects.toThrow();
+        const nonExistentProfessor = await professorService.get(nonExistentId);
+        expect(nonExistentProfessor).toBeNull();
     });
 
     it('should handle validation errors when creating a Professor with missing required fields', async () => {
@@ -110,12 +110,14 @@ describe('ProfessorService', () => {
         const nonExistentId = 9999;
         const updatedData = { firstName: 'Updated', lastName: 'Name' };
 
-        await expect(professorService.update(nonExistentId, updatedData)).rejects.toThrow();
+        const rowCount = await professorService.update(nonExistentId, updatedData);
+        expect(rowCount == 0).toBeTruthy();
     });
 
     it('should handle errors when deleting a non-existent Professor', async () => {
         const nonExistentId = 9999;
 
-        await expect(professorService.delete(nonExistentId)).rejects.toThrow();
+        const rowCount = await professorService.delete(nonExistentId);
+        expect(rowCount).toBe(0);
     });
 });

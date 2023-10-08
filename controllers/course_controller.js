@@ -29,19 +29,23 @@ class CourseController {
     }
 
     async getAll() {
-        await this.courseService.getAll();
+        return await this.courseService.getAll();
+    }
+
+    async get(id) {
+        return await this.courseService.get(id);
     }
 
     async insert(name, careerId) {
-        await this.courseService.insert(name, careerId);
+        return await this.courseService.insert(name, careerId);
     }
 
     async update(id, name, careerId) {
-        await this.courseService.update(id, name, careerId);
+        return await this.courseService.update(id, name, careerId);
     }
 
     async delete(id) {
-        await this.courseService.delete(id);
+        return await this.courseService.delete(id);
     }
 }
 
