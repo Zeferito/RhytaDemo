@@ -57,10 +57,6 @@ class CourseModel {
         });
     }
 
-    async getModel() {
-        return this.Course;
-    }
-
     async findAll() {
         try {
             return await this.Course.findAll();

@@ -75,10 +75,6 @@ class ProfessorEventModel {
         });
     }
 
-    async getModel() {
-        return this.ProfessorEvent;
-    }
-
     async findAll() {
         try {
             return await this.ProfessorEvent.findAll();

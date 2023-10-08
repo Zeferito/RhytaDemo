@@ -52,10 +52,6 @@ class ProfessorModel {
         });
     }
 
-    async getModel() {
-        return this.Professor;
-    }
-
     async findAll() {
         try {
             return await this.Professor.findAll();

@@ -71,18 +71,6 @@ class TermModel {
         });
     }
 
-    async getModel() {
-        return this.Term;
-    }
-
-    async sync() {
-        try {
-            return await this.sequelize.sync();
-        } catch (error) {
-            throw new Error(`Failed to synchronize database: ${error.message}`);
-        }
-    }
-
     async findAll() {
         try {
             return await this.Term.findAll();
