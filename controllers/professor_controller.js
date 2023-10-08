@@ -29,19 +29,19 @@ class ProfessorController {
     }
 
     async getAll() {
-        await this.professorService.retrieveAllProfessors();
+        await this.professorService.getAll();
     }
 
     async insert(firstName, lastName) {
-        await this.professorService.insertProfessor(firstName, lastName);
+        await this.professorService.insert(firstName, lastName);
     }
 
     async update(id, firstName, lastName) {
-        await this.professorService.updateProfessor(id, firstName, lastName);
+        await this.professorService.update(id, firstName, lastName);
     }
 
     async delete(id) {
-        await this.professorService.deleteProfessor(id);
+        await this.professorService.delete(id);
     }
 }
 

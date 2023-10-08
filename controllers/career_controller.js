@@ -29,23 +29,19 @@ class CareerController {
     }
 
     async getAll() {
-        await this.careerService.retrieveAllCareers();
+        await this.careerService.getAll();
     }
 
     async insert(name) {
-        await this.careerService.insertCareer(name);
+        await this.careerService.insert(name);
     }
 
     async update(id, name) {
-        await this.careerService.updateCareer(id, name);
+        await this.careerService.update(id, name);
     }
 
     async delete(id) {
-        await this.careerService.deleteCareer(id);
-    }
-
-    async getCourses(careerId) {
-        await this.careerService.getCoursesByCareer(careerId);
+        await this.careerService.delete(id);
     }
 }
 

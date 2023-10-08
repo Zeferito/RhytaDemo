@@ -39,55 +39,81 @@ class ProfessorService {
         });
     }
 
-    async retrieveAllProfessors() {
+    async getAll() {
         try {
-            const professors = await this.professorModel.findAll();
+            const professors = await this.professorModel.Professor.findAll();
 
             console.log('All Professors:');
-
             professors.forEach((professor) => {
                 console.log(`ID: ${professor.id}, Name: ${professor.firstName} ${professor.lastName}`);
             });
+
+            return professors;
         } catch (error) {
-            console.error('Error retrieving professors:', error.message);
+            throw new Error('Error retrieving professors: ' + error.message);
         }
     }
 
-    async insertProfessor(firstName, lastName) {
+    async get(id) {
         try {
-            const createdProfessor = await this.professorModel.create({ firstName, lastName });
+            const professor = await this.professorModel.Professor.findByPk(id);
+
+            console.log('Professor Data:');
+            console.log(`ID: ${professor.id}, Name: ${professor.firstName} ${professor.lastName}`);
+
+            return professor;
+        } catch (error) {
+            throw new Error('Error retrieving professor: ' + error.message);
+        }
+    }
+
+    async insert(data) {
+        try {
+            const createdProfessor = await this.professorModel.Professor.create(data);
 
             console.log('Professor created successfully. Professor Data:');
             console.log(`ID: ${createdProfessor.id}, Name: ${createdProfessor.firstName} ${createdProfessor.lastName}`);
+
+            return createdProfessor;
         } catch (error) {
-            console.error('Error creating professor:', error.message);
+            throw new Error('Error creating professor: ' + error.message);
         }
     }
 
-    async updateProfessor(id, firstName, lastName) {
+    async update(id, data) {
         try {
-            const updated = await this.professorModel.update(id, { firstName, lastName });
+            const rowCount = await this.professorModel.Professor.update(data, {
+                where: { id },
+            });
 
-            if (updated) {
-                const updatedProfessor = await this.professorModel.findById(id);
-
-                console.log('Professor updated successfully. Updated Professor Data:');
-                console.log(`ID: ${updatedProfessor.id}, Name: ${updatedProfessor.firstName} ${updatedProfessor.lastName}`);
-            } else {
-                console.log('Professor not found for update.');
+            if (rowCount === 0) {
+                throw new Error('Professor not found for update');
             }
+
+            const updatedProfessor = await this.professorModel.Professor.findByPk(id);
+
+            console.log('Professor updated successfully. Updated Professor Data:');
+            console.log(`ID: ${updatedProfessor.id}, Name: ${updatedProfessor.firstName} ${updatedProfessor.lastName}`);
+
+            return updatedProfessor;
         } catch (error) {
-            console.error('Error updating professor:', error.message);
+            throw new Error('Error updating professor: ' + error.message);
         }
     }
 
-    async deleteProfessor(id) {
+    async delete(id) {
         try {
-            await this.professorModel.delete(id);
+            const rowCount = await this.professorModel.Professor.destroy({
+                where: { id },
+            });
+
+            if (rowCount === 0) {
+                throw new Error('Professor not found for deletion');
+            }
 
             console.log('Professor deleted successfully.');
         } catch (error) {
-            console.error('Error deleting professor:', error.message);
+            throw new Error('Error deleting professor: ' + error.message);
         }
     }
 }

@@ -29,19 +29,19 @@ class ProfessorEventController {
     }
 
     async getAll() {
-        await this.professorEventService.retrieveAllProfessorEvents();
+        await this.professorEventService.getAll();
     }
 
     async insert(title, startDate, endDate, professorId) {
-        await this.professorEventService.insertProfessorEvent(title, startDate, endDate, professorId);
+        await this.professorEventService.insert(title, startDate, endDate, professorId);
     }
 
     async update(id, title, startDate, endDate, professorId) {
-        await this.professorEventService.updateProfessorEvent(id, title, startDate, endDate, professorId);
+        await this.professorEventService.update(id, title, startDate, endDate, professorId);
     }
 
     async delete(id) {
-        await this.professorEventService.deleteProfessorEvent(id);
+        await this.professorEventService.delete(id);
     }
 }
 

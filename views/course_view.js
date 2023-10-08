@@ -36,7 +36,6 @@ class CourseView {
                 console.log('2. Insert Course');
                 console.log('3. Update Course');
                 console.log('4. Delete Course');
-                console.log('5. Set Career for Course');
                 console.log('0. Return');
 
                 const choice = readlineSync.question('Enter your choice: ');
@@ -55,9 +54,6 @@ class CourseView {
                         break;
                     case '4':
                         await this.deleteCourse();
-                        break;
-                    case '5':
-                        await this.setCareerForCourse();
                         break;
                     case '0':
                         return;
@@ -95,13 +91,6 @@ class CourseView {
         const id = readlineSync.question('Enter course ID to delete: ');
 
         await this.courseController.delete(id);
-    }
-
-    async setCareerForCourse() {
-        const courseId = readlineSync.question('Enter course ID: ');
-        const careerId = readlineSync.question('Enter career ID: ');
-
-        await this.courseController.setCareer(courseId, careerId);
     }
 }
 

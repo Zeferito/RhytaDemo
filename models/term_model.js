@@ -70,62 +70,6 @@ class TermModel {
             timestamps: false,
         });
     }
-
-    async findAll() {
-        try {
-            return await this.Term.findAll();
-        } catch (error) {
-            throw new Error(`Failed to retrieve terms: ${error.message}`);
-        }
-    }
-
-    async findById(id) {
-        try {
-            return await this.Term.findByPk(id);
-        } catch (error) {
-            throw new Error(`Failed to find term by ID: ${error.message}`);
-        }
-    }
-
-    async create(termData) {
-        try {
-            return await this.Term.create(termData);
-        } catch (error) {
-            throw new Error(`Failed to create term: ${error.message}`);
-        }
-    }
-
-    async update(id, termData) {
-        try {
-            const [rowCount] = await this.Term.update(termData, {
-                where: { id },
-            });
-
-            if (rowCount === 0) {
-                throw new Error('Term not found for update');
-            }
-
-            return true;
-        } catch (error) {
-            throw new Error(`Failed to update term: ${error.message}`);
-        }
-    }
-
-    async delete(id) {
-        try {
-            const rowCount = await this.Term.destroy({
-                where: { id },
-            });
-
-            if (rowCount === 0) {
-                throw new Error('Term not found for deletion');
-            }
-
-            return true;
-        } catch (error) {
-            throw new Error(`Failed to delete term: ${error.message}`);
-        }
-    }
 }
 
 module.exports = TermModel;

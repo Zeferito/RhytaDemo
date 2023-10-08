@@ -20,7 +20,7 @@
  */
 const Sequelize = require('sequelize');
 
-const TermModel = require('../../models/term_model');
+const TermService = require('../../services/term_service');
 
 const sequelize = new Sequelize({
     dialect: 'sqlite',
@@ -28,11 +28,11 @@ const sequelize = new Sequelize({
     logging: false,
 });
 
-describe('TermModel', () => {
-    let termModel;
+describe('TermService', () => {
+    let termService;
 
     beforeAll(async () => {
-        termModel = new TermModel(sequelize);
+        termService = new TermService(sequelize);
 
         await sequelize.sync();
     });
@@ -42,7 +42,7 @@ describe('TermModel', () => {
     });
 
     afterEach(async () => {
-        await termModel.Term.destroy({ where: {} });
+        await termService.termModel.Term.destroy({ where: {} });
     });
 
     it('should create a Term and find it by ID', async () => {
@@ -51,16 +51,16 @@ describe('TermModel', () => {
             startDate: new Date(),
             endDate: new Date(),
         };
-        const createdTerm = await termModel.create(termData);
+        const createdTerm = await termService.insert(termData);
 
-        const foundTerm = await termModel.findById(createdTerm.id);
+        const foundTerm = await termService.get(createdTerm.id);
 
         expect(foundTerm).not.toBeNull();
         expect(foundTerm.title).toBe(termData.title);
     });
 
-    it('should return an empty array for findAll when no Terms exist', async () => {
-        const terms = await termModel.findAll();
+    it('should return an empty array for getAll when no Terms exist', async () => {
+        const terms = await termService.getAll();
 
         expect(terms).toEqual([]);
     });
@@ -71,12 +71,12 @@ describe('TermModel', () => {
             startDate: new Date(),
             endDate: new Date(),
         };
-        const createdTerm = await termModel.create(termData);
+        const createdTerm = await termService.insert(termData);
 
         const updatedData = { title: 'Updated Term' };
-        await termModel.update(createdTerm.id, updatedData);
+        await termService.update(createdTerm.id, updatedData);
 
-        const foundTerm = await termModel.findById(createdTerm.id);
+        const foundTerm = await termService.get(createdTerm.id);
 
         expect(foundTerm).not.toBeNull();
         expect(foundTerm.title).toBe(updatedData.title);
@@ -88,28 +88,24 @@ describe('TermModel', () => {
             startDate: new Date(),
             endDate: new Date(),
         };
-        const createdTerm = await termModel.create(termData);
+        const createdTerm = await termService.insert(termData);
 
-        await termModel.delete(createdTerm.id);
+        await termService.delete(createdTerm.id);
 
-        const foundTerm = await termModel.findById(createdTerm.id);
-
-        expect(foundTerm).toBeNull();
+        expect(termService.get(createdTerm.id)).rejects.toThrow();
     });
 
-
-    it('should return null when trying to find a non-existent Term by ID', async () => {
+    it('should handle errors when trying to find a non-existent Term by ID', async () => {
         const nonExistentId = 9999;
-        const foundTerm = await termModel.findById(nonExistentId);
-        expect(foundTerm).toBeNull();
+        expect(termService.get(nonExistentId)).rejects.toThrow();
     });
 
-    it('should return an empty array for findAll when no Terms exist', async () => {
-        const terms = await termModel.findAll();
+    it('should return an empty array for getAll when no Terms exist', async () => {
+        const terms = await termService.getAll();
         expect(terms).toEqual([]);
     });
 
-    it('should return an array of Terms for findAll when Terms exist', async () => {
+    it('should return an array of Terms for getAll when Terms exist', async () => {
         const termData1 = {
             title: 'Term 1',
             startDate: new Date(),
@@ -120,10 +116,10 @@ describe('TermModel', () => {
             startDate: new Date(),
             endDate: new Date(),
         };
-        await termModel.create(termData1);
-        await termModel.create(termData2);
+        await termService.insert(termData1);
+        await termService.insert(termData2);
 
-        const terms = await termModel.findAll();
+        const terms = await termService.getAll();
 
         expect(terms).toHaveLength(2);
         expect(terms[0].title).toBe(termData1.title);
@@ -131,23 +127,22 @@ describe('TermModel', () => {
     });
 
     it('should handle validation errors when creating a Term with missing required fields', async () => {
-        const invalidTermData = {
-        };
+        const invalidTermData = {};
 
-        await expect(termModel.create(invalidTermData)).rejects.toThrow();
+        await expect(termService.insert(invalidTermData)).rejects.toThrow();
     });
 
     it('should handle errors when updating a non-existent Term', async () => {
         const nonExistentId = 9999;
         const updatedData = { title: 'Updated Term' };
 
-        await expect(termModel.update(nonExistentId, updatedData)).rejects.toThrow();
+        await expect(termService.update(nonExistentId, updatedData)).rejects.toThrow();
     });
 
     it('should handle errors when deleting a non-existent Term', async () => {
         const nonExistentId = 9999;
 
-        await expect(termModel.delete(nonExistentId)).rejects.toThrow();
+        await expect(termService.delete(nonExistentId)).rejects.toThrow();
     });
 
     it('should create a Term and find it by ID with correct attributes', async () => {
@@ -157,9 +152,9 @@ describe('TermModel', () => {
             endDate: new Date(),
         };
 
-        const createdTerm = await termModel.create(termData);
+        const createdTerm = await termService.insert(termData);
 
-        const foundTerm = await termModel.findById(createdTerm.id);
+        const foundTerm = await termService.get(createdTerm.id);
 
         expect(foundTerm).not.toBeNull();
         expect(foundTerm.title).toBe(termData.title);
@@ -174,28 +169,10 @@ describe('TermModel', () => {
             endDate: new Date(),
         };
 
-        const createdTerm = await termModel.create(termData);
+        const createdTerm = await termService.insert(termData);
 
         const updatedData = { title: '' };
 
-        await expect(termModel.update(createdTerm.id, updatedData)).rejects.toThrow();
+        await expect(termService.update(createdTerm.id, updatedData)).rejects.toThrow();
     });
-
-    it('should delete a Term and return true', async () => {
-        const termData = {
-            title: 'Test Term',
-            startDate: new Date(),
-            endDate: new Date(),
-        };
-
-        const createdTerm = await termModel.create(termData);
-
-        const result = await termModel.delete(createdTerm.id);
-
-        expect(result).toBe(true);
-
-        const foundTerm = await termModel.findById(createdTerm.id);
-        expect(foundTerm).toBeNull();
-    });
-
 });

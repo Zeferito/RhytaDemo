@@ -28,55 +28,81 @@ class TermService {
         this.termModel = new TermModel(sequelize);
     }
 
-    async retrieveAllTerms() {
+    async getAll() {
         try {
-            const terms = await this.termModel.findAll();
+            const terms = await this.termModel.Term.findAll();
 
             console.log('All Terms:');
-
             terms.forEach((term) => {
                 console.log(`ID: ${term.id}, Title: ${term.title}, Start Date: ${term.startDate}, End Date: ${term.endDate}`);
             });
+
+            return terms;
         } catch (error) {
-            console.error('Error retrieving terms:', error.message);
+            throw new Error('Error retrieving terms: ' + error.message);
         }
     }
 
-    async insertTerm(title, startDate, endDate) {
+    async get(id) {
         try {
-            const createdTerm = await this.termModel.create({ title, startDate, endDate });
+            const term = await this.termModel.Term.findByPk(id);
+
+            console.log('Term Data:');
+            console.log(`ID: ${term.id}, Title: ${term.title}, Start Date: ${term.startDate}, End Date: ${term.endDate}`);
+
+            return term;
+        } catch (error) {
+            throw new Error('Error retrieving term: ' + error.message);
+        }
+    }
+
+    async insert(data) {
+        try {
+            const createdTerm = await this.termModel.Term.create(data);
 
             console.log('Term created successfully. Term Data:');
             console.log(`ID: ${createdTerm.id}, Title: ${createdTerm.title}, Start Date: ${createdTerm.startDate}, End Date: ${createdTerm.endDate}`);
+
+            return createdTerm;
         } catch (error) {
-            console.error('Error creating term:', error.message);
+            throw new Error('Error creating term: ' + error.message);
         }
     }
 
-    async updateTerm(id, title, startDate, endDate) {
+    async update(id, data) {
         try {
-            const updated = await this.termModel.update(id, { title, startDate, endDate });
+            const rowCount = await this.termModel.Term.update(data, {
+                where: { id },
+            });
 
-            if (updated) {
-                const updatedTerm = await this.termModel.findById(id);
-
-                console.log('Term updated successfully. Updated Term Data:');
-                console.log(`ID: ${updatedTerm.id}, Title: ${updatedTerm.title}, Start Date: ${updatedTerm.startDate}, End Date: ${updatedTerm.endDate}`);
-            } else {
-                console.log('Term not found for update.');
+            if (rowCount === 0) {
+                throw new Error('Term not found for update');
             }
+
+            const updatedTerm = await this.termModel.Term.findByPk(id);
+
+            console.log('Term updated successfully. Updated Term Data:');
+            console.log(`ID: ${updatedTerm.id}, Title: ${updatedTerm.title}, Start Date: ${updatedTerm.startDate}, End Date: ${updatedTerm.endDate}`);
+
+            return updatedTerm;
         } catch (error) {
-            console.error('Error updating term:', error.message);
+            throw new Error('Error updating term: ' + error.message);
         }
     }
 
-    async deleteTerm(id) {
+    async delete(id) {
         try {
-            await this.termModel.delete(id);
+            const rowCount = await this.termModel.Term.destroy({
+                where: { id },
+            });
+
+            if (rowCount === 0) {
+                throw new Error('Term not found for deletion');
+            }
 
             console.log('Term deleted successfully.');
         } catch (error) {
-            console.error('Error deleting term:', error.message);
+            throw new Error('Error deleting term: ' + error.message);
         }
     }
 }

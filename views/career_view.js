@@ -36,7 +36,6 @@ class CareerView {
                 console.log('2. Insert Career');
                 console.log('3. Update Career');
                 console.log('4. Delete Career');
-                console.log('5. Get Courses by Career');
                 console.log('0. Return');
 
                 const choice = readlineSync.question('Enter your choice: ');
@@ -55,9 +54,6 @@ class CareerView {
                         break;
                     case '4':
                         await this.deleteCareer();
-                        break;
-                    case '5':
-                        await this.getCoursesByCareer();
                         break;
                     case '0':
                         return;
@@ -93,12 +89,6 @@ class CareerView {
         const id = readlineSync.question('Enter career ID to delete: ');
 
         await this.careerController.delete(id);
-    }
-
-    async getCoursesByCareer() {
-        const careerId = readlineSync.question('Enter career ID: ');
-
-        await this.careerController.getCourses(careerId);
     }
 }
 

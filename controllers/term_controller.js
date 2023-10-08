@@ -29,19 +29,19 @@ class TermController {
     }
 
     async getAll() {
-        await this.termService.retrieveAllTerms();
+        await this.termService.getAll();
     }
 
     async insert(title, startDate, endDate) {
-        await this.termService.insertTerm(title, startDate, endDate);
+        await this.termService.insert(title, startDate, endDate);
     }
 
     async update(id, title, startDate, endDate) {
-        await this.termService.updateTerm(id, title, startDate, endDate);
+        await this.termService.update(id, title, startDate, endDate);
     }
 
     async delete(id) {
-        await this.termService.deleteTerm(id);
+        await this.termService.delete(id);
     }
 }
 

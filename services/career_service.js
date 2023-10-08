@@ -33,69 +33,81 @@ class CareerService {
         this.courseModel.Course.belongsTo(this.careerModel.Career, { foreignKey: 'careerId', as: 'career' });
     }
 
-    async retrieveAllCareers() {
+    async getAll() {
         try {
-            const careers = await this.careerModel.findAll();
+            const careers = await this.careerModel.Career.findAll();
 
             console.log('All Careers:');
-
             careers.forEach((career) => {
                 console.log(`ID: ${career.id}, Name: ${career.name}`);
             });
+
+            return careers;
         } catch (error) {
-            console.error('Error retrieving careers:', error.message);
+            throw new Error('Error retrieving careers: ' + error.message);
         }
     }
 
-    async insertCareer(name) {
+    async get(id) {
         try {
-            const createdCareer = await this.careerModel.create({ name });
+            const career = await this.careerModel.Career.findByPk(id);
+
+            console.log('Career Data:');
+            console.log(`ID: ${career.id}, Name: ${career.name}`);
+
+            return career;
+        } catch (error) {
+            throw new Error('Error retrieving careers: ' + error.message);
+        }
+    }
+
+    async insert(data) {
+        try {
+            const createdCareer = await this.careerModel.Career.create(data);
 
             console.log('Career created successfully. Career Data:');
             console.log(`ID: ${createdCareer.id}, Name: ${createdCareer.name}`);
+
+            return createdCareer;
         } catch (error) {
-            console.error('Error creating career:', error.message);
+            throw new Error('Error creating career: ' + error.message);
         }
     }
 
-    async updateCareer(id, name) {
+    async update(id, data) {
         try {
-            const updated = await this.careerModel.update(id, { name });
+            const rowCount = await this.careerModel.Career.update(data, {
+                where: { id },
+            });
 
-            if (updated) {
-                const updatedCareer = await this.careerModel.findById(id);
-
-                console.log('Career updated successfully. Updated Career Data:');
-                console.log(`ID: ${updatedCareer.id}, Name: ${updatedCareer.name}`);
-            } else {
-                console.log('Career not found for update.');
+            if (rowCount === 0) {
+                throw new Error('Career not found for update');
             }
+
+            const updatedCareer = await this.careerModel.Career.findByPk(id);
+
+            console.log('Career updated successfully. Updated Career Data:');
+            console.log(`ID: ${updatedCareer.id}, Name: ${updatedCareer.name}`);
+
+            return updatedCareer;
         } catch (error) {
-            console.error('Error updating career:', error.message);
+            throw new Error('Error updating career: ' + error.message);
         }
     }
 
-    async deleteCareer(id) {
+    async delete(id) {
         try {
-            await this.careerModel.delete(id);
+            const rowCount = await this.careerModel.Career.destroy({
+                where: { id },
+            });
+
+            if (rowCount === 0) {
+                throw new Error('Career not found for deletion');
+            }
 
             console.log('Career deleted successfully.');
         } catch (error) {
-            console.error('Error deleting career:', error.message);
-        }
-    }
-
-    async getCoursesByCareer(careerId) {
-        try {
-            const courses = await this.careerModel.getCoursesById(careerId);
-
-            console.log('Courses for Career:');
-
-            courses.forEach((course) => {
-                console.log(`ID: ${course.id}, Name: ${course.name}, Career ID: ${course.careerId}`);
-            });
-        } catch (error) {
-            console.error('Error retrieving courses for career:', error.message);
+            throw new Error('Error deleting career: ' + error.message);
         }
     }
 }

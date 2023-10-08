@@ -33,59 +33,81 @@ class CourseService {
         this.courseModel.Course.belongsTo(this.careerModel.Career, { foreignKey: 'careerId', as: 'career' });
     }
 
-    async retrieveAllCourses() {
+    async getAll() {
         try {
-            const courses = await this.courseModel.findAll();
+            const courses = await this.courseModel.Course.findAll();
+
             console.log('All Courses:');
             courses.forEach((course) => {
                 console.log(`ID: ${course.id}, Name: ${course.name}, Career ID: ${course.careerId}`);
             });
+
+            return courses;
         } catch (error) {
-            console.error('Error retrieving courses:', error.message);
+            throw new Error('Error retrieving courses: ' + error.message);
         }
     }
 
-    async insertCourse(name, careerId) {
+    async get(id) {
         try {
-            const createdCourse = await this.courseModel.create({ name, careerId });
+            const course = await this.courseModel.Course.findByPk(id);
+
+            console.log('Course Data:');
+            console.log(`ID: ${course.id}, Name: ${course.name}, Career ID: ${course.careerId}`);
+
+            return course;
+        } catch (error) {
+            throw new Error('Error retrieving course: ' + error.message);
+        }
+    }
+
+    async insert(data) {
+        try {
+            const createdCourse = await this.courseModel.Course.create(data);
+
             console.log('Course created successfully. Course Data:');
             console.log(`ID: ${createdCourse.id}, Name: ${createdCourse.name}, Career ID: ${createdCourse.careerId}`);
+
+            return createdCourse;
         } catch (error) {
-            console.error('Error creating course:', error.message);
+            throw new Error('Error creating course: ' + error.message);
         }
     }
 
-    async updateCourse(id, name, careerId) {
+    async update(id, data) {
         try {
-            const updated = await this.courseModel.update(id, { name, careerId });
-            if (updated) {
-                const updatedCourse = await this.courseModel.findById(id);
-                console.log('Course updated successfully. Updated Course Data:');
-                console.log(`ID: ${updatedCourse.id}, Name: ${updatedCourse.name}, Career ID: ${updatedCourse.careerId}`);
-            } else {
-                console.log('Course not found for update.');
+            const rowCount = await this.courseModel.Course.update(data, {
+                where: { id },
+            });
+
+            if (rowCount === 0) {
+                throw new Error('Course not found for update');
             }
+
+            const updatedCourse = await this.courseModel.Course.findByPk(id);
+
+            console.log('Course updated successfully. Updated Course Data:');
+            console.log(`ID: ${updatedCourse.id}, Name: ${updatedCourse.name}, Career ID: ${updatedCourse.careerId}`);
+
+            return updatedCourse;
         } catch (error) {
-            console.error('Error updating course:', error.message);
+            throw new Error('Error updating course: ' + error.message);
         }
     }
 
-    async deleteCourse(id) {
+    async delete(id) {
         try {
-            await this.courseModel.delete(id);
+            const rowCount = await this.courseModel.Course.destroy({
+                where: { id },
+            });
+
+            if (rowCount === 0) {
+                throw new Error('Course not found for deletion');
+            }
+
             console.log('Course deleted successfully.');
         } catch (error) {
-            console.error('Error deleting course:', error.message);
-        }
-    }
-
-    async setCareerForCourse(courseId, careerId) {
-        try {
-            const course = await this.courseModel.setCareer(courseId, careerId);
-            console.log('Career set for course successfully. Updated Course Data:');
-            console.log(`ID: ${course.id}, Name: ${course.name}, Career ID: ${course.careerId}`);
-        } catch (error) {
-            console.error('Error setting career for course:', error.message);
+            throw new Error('Error deleting course: ' + error.message);
         }
     }
 }

@@ -39,60 +39,81 @@ class ProfessorEventService {
         });
     }
 
-    async retrieveAllProfessorEvents() {
+    async getAll() {
         try {
-            const professorEvents = await this.professorEventModel.findAll();
+            const professorEvents = await this.professorEventModel.ProfessorEvent.findAll();
 
             console.log('All Professor Events:');
-
             professorEvents.forEach((event) => {
                 console.log(`ID: ${event.id}, Title: ${event.title}, Start Date: ${event.startDate}, End Date: ${event.endDate}`);
             });
+
+            return professorEvents;
         } catch (error) {
-            console.error('Error retrieving professor events:', error.message);
+            throw new Error('Error retrieving professor events: ' + error.message);
         }
     }
 
-    async insertProfessorEvent(title, startDate, endDate, professorId) {
+    async get(id) {
         try {
-            const createdEvent = await this.professorEventModel.create({ title, startDate, endDate, professorId });
+            const event = await this.professorEventModel.ProfessorEvent.findByPk(id);
+
+            console.log('Professor Event Data:');
+            console.log(`ID: ${event.id}, Title: ${event.title}, Start Date: ${event.startDate}, End Date: ${event.endDate}`);
+
+            return event;
+        } catch (error) {
+            throw new Error('Error retrieving professor event: ' + error.message);
+        }
+    }
+
+    async insert(data) {
+        try {
+            const createdEvent = await this.professorEventModel.ProfessorEvent.create(data);
 
             console.log('Professor event created successfully. Event Data:');
             console.log(`ID: ${createdEvent.id}, Title: ${createdEvent.title}, Start Date: ${createdEvent.startDate}, End Date: ${createdEvent.endDate}`);
+
+            return createdEvent;
         } catch (error) {
-            console.error('Error creating professor event:', error.message);
+            throw new Error('Error creating professor event: ' + error.message);
         }
     }
 
-    async updateProfessorEvent(id, title, startDate, endDate, professorId) {
+    async update(id, data) {
         try {
-            const updated = await this.professorEventModel.update(id, { title, startDate, endDate, professorId });
+            const rowCount = await this.professorEventModel.ProfessorEvent.update(data, {
+                where: { id },
+            });
 
-            if (updated) {
-                console.log('Professor event updated successfully. Updated Event Data:');
-
-                const updatedEvent = await this.professorEventModel.findById(id);
-
-                console.log(`ID: ${updatedEvent.id}, Title: ${updatedEvent.title}, Start Date: ${updatedEvent.startDate}, End Date: ${updatedEvent.endDate}, Professor ID: ${updatedEvent.professorId}`);
-            } else {
-                console.log('Professor event not found for update.');
+            if (rowCount === 0) {
+                throw new Error('Professor event not found for update');
             }
+
+            const updatedEvent = await this.professorEventModel.ProfessorEvent.findByPk(id);
+
+            console.log('Professor event updated successfully. Updated Event Data:');
+            console.log(`ID: ${updatedEvent.id}, Title: ${updatedEvent.title}, Start Date: ${updatedEvent.startDate}, End Date: ${updatedEvent.endDate}, Professor ID: ${updatedEvent.professorId}`);
+
+            return updatedEvent;
         } catch (error) {
-            console.error('Error updating professor event:', error.message);
+            throw new Error('Error updating professor event: ' + error.message);
         }
     }
 
-    async deleteProfessorEvent(id) {
+    async delete(id) {
         try {
-            const deleted = await this.professorEventModel.delete(id);
+            const rowCount = await this.professorEventModel.ProfessorEvent.destroy({
+                where: { id },
+            });
 
-            if (deleted) {
-                console.log('Professor event deleted successfully.');
-            } else {
-                console.log('Professor event not found for deletion.');
+            if (rowCount === 0) {
+                throw new Error('Professor event not found for deletion');
             }
+
+            console.log('Professor event deleted successfully.');
         } catch (error) {
-            console.error('Error deleting professor event:', error.message);
+            throw new Error('Error deleting professor event: ' + error.message);
         }
     }
 }
