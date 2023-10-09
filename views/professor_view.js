@@ -29,19 +29,19 @@ class ProfessorView {
     }
 
     async runView() {
-        try {
-            while (true) {
-                console.log('Options:');
-                console.log('1. Retrieve All Professors');
-                console.log('2. Insert Professor');
-                console.log('3. Update Professor');
-                console.log('4. Delete Professor');
-                console.log('0. Return');
+        while (true) {
+            console.log('Options:');
+            console.log('1. Retrieve All Professors');
+            console.log('2. Insert Professor');
+            console.log('3. Update Professor');
+            console.log('4. Delete Professor');
+            console.log('0. Return');
 
-                const choice = readlineSync.question('Enter your choice: ');
+            const choice = readlineSync.question('Enter your choice: ');
 
-                console.log();
+            console.log();
 
+            try {
                 switch (choice) {
                     case '1':
                         await this.retrieveAllProfessors();
@@ -60,11 +60,11 @@ class ProfessorView {
                     default:
                         console.log('Invalid choice. Please try again.');
                 }
-
-                console.log();
+            } catch (error) {
+                console.error('An error occurred:', error.message);
             }
-        } catch (error) {
-            console.error('An error occurred:', error.message);
+
+            console.log();
         }
     }
 

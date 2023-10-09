@@ -56,24 +56,24 @@ const professorService = new ProfessorView(sequelize);
 const termService = new TermView(sequelize);
 
 (async () => {
-    try {
-        await sequelize.sync();
+    await sequelize.sync();
+
+    console.log();
+
+    while (true) {
+        console.log('Options:');
+        console.log('1. Careers');
+        console.log('2. Courses');
+        console.log('3. Professors');
+        console.log('4. Professor Events');
+        console.log('5. Terms');
+        console.log('0. Exit');
+
+        const choice = readlineSync.question('Enter your choice: ');
 
         console.log();
 
-        while (true) {
-            console.log('Options:');
-            console.log('1. Careers');
-            console.log('2. Courses');
-            console.log('3. Professors');
-            console.log('4. Professor Events');
-            console.log('5. Terms');
-            console.log('0. Exit');
-
-            const choice = readlineSync.question('Enter your choice: ');
-
-            console.log();
-
+        try {
             switch (choice) {
                 case '1':
                     await careerService.runView();
@@ -96,12 +96,10 @@ const termService = new TermView(sequelize);
                 default:
                     console.log('Invalid choice. Please try again.');
             }
-
-            console.log();
+        } catch (error) {
+            console.error('An error occurred:', error.message);
         }
-    } catch (error) {
-        console.error('An error occurred:', error.message);
-    }
 
-    process.exit(0);
+        console.log();
+    }
 })();
