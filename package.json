@@ -2,9 +2,9 @@
   "name": "rhyta-demo",
   "version": "1.3.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node app.js",
     "test": "jest"
   },
   "author": "Kawtious, Zeferito",
