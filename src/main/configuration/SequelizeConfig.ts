@@ -22,7 +22,7 @@ require('dotenv').config();
 
 import {Sequelize} from "sequelize";
 
-export const sequelizeConfig = new Sequelize({
+let sequelizeConfig: Sequelize = new Sequelize({
     dialect: 'mysql',
     database: process.env.MYSQLDB_NAME,
     username: process.env.MYSQLDB_USER,
@@ -34,3 +34,13 @@ export const sequelizeConfig = new Sequelize({
         freezeTableName: true,
     },
 });
+
+if (process.env.NODE_ENV === 'test') {
+    sequelizeConfig = new Sequelize({
+        dialect: 'sqlite',
+        storage: ':memory:',
+        logging: false,
+    });
+}
+
+export {sequelizeConfig};
