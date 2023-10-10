@@ -108,10 +108,6 @@ contain environment variables that store the database connection information. He
    and `your_mysql_database_name` with your actual
    MySQL database details.
 
-## Endpoints
-
-TODO
-
 ## Contributing
 
 As this project serves as a demonstration for a school project, it is meant to showcase specific features and
