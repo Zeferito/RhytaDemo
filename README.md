@@ -79,6 +79,16 @@ To run this application locally, follow these steps:
     npm start
     ```
 
+8. (Optional) Start the example client application:
+
+   A small example CLI client is included in this repository to test the server endpoints. In order to run the client,
+   just run this command:
+
+    ```bash
+    # Assuming you're in the root directory of the project
+    ts-node src/examples/client/App.ts
+    ```
+
 ## Configuring Database Connections
 
 To configure the MySQL connection, you must create a `.env` file in the root directory of the project. This file will
