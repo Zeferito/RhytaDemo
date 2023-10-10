@@ -37,3 +37,6 @@ package-lock.json
 
 # Yarn package manager lock file
 yarn.lock
+
+# Test coverage files
+/coverage/

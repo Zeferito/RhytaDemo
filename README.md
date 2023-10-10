@@ -18,7 +18,9 @@ project utilizes Node.js with Sequelize as the primary development stack and sup
 ## Technologies Used
 
 - **Application**:
+    - [TypeScript](https://www.typescriptlang.org/): A strongly typed programming language that builds on JavaScript.
     - [Node.js](https://nodejs.org/): A JavaScript runtime for server-side development.
+    - [Express.js](https://expressjs.com/): A Node.js web application framework.
     - [Sequelize](https://sequelize.org/): An ORM (Object-Relational Mapping) for MySQL database.
     - [Jest](https://jestjs.io/): A JavaScript testing framework.
 
@@ -53,7 +55,25 @@ To run this application locally, follow these steps:
    Configure the database by following the instructions in
    the [Configuring Database Connections](#configuring-database-connections) section of this README.
 
-5. Start the application:
+5. Configure the server:
+
+   If you followed the instructions in [Configuring Database Connections](#configuring-database-connections), you can
+   just open the `.env` file once again using a text editor and add the following environment variables:
+
+    ```plaintext
+    SERVER_HOST="your_server_host"             # "localhost"
+    SERVER_PORT=your_server_port               # 3000
+    ```
+
+   Replace `your_server_host`, and `your_server_port` with your preferred connection details.
+
+6. Build the application:
+
+    ```bash
+    npm build
+    ```
+
+7. Start the application:
 
     ```bash
     npm start
@@ -87,6 +107,10 @@ contain environment variables that store the database connection information. He
    Replace `your_mysql_host`, `your_mysql_port`, `your_mysql_user`, `your_mysql_password`,
    and `your_mysql_database_name` with your actual
    MySQL database details.
+
+## Endpoints
+
+TODO
 
 ## Contributing
 
