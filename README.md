@@ -45,7 +45,7 @@ To run this application locally, follow these steps:
 
     ```bash
     # Install dependencies
-    npm install
+    npm run install
     ```
 
 4. Configure the Database:
@@ -56,7 +56,7 @@ To run this application locally, follow these steps:
 5. Start the application:
 
     ```bash
-    npm start
+    npm run start
     ```
 
 ## Configuring Database Connections
